@@ -6,7 +6,7 @@ button {
 }
 
 .default {
-    background-color: var(--blue-500);
+    background-color: var(--sky-600);
     border: none;
 
     &:hover {

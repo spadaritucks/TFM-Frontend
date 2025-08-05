@@ -1,11 +1,11 @@
-.form-section {
+.form-section{
     display: grid;
     grid-template-columns: 2fr 1fr;
     width: 100%;
     height: 100vh;
 }
 
-.form-image-container {
+.form-image-container{
     display: flex;
     align-items: center;
     justify-content: center;
@@ -27,6 +27,7 @@
     font-size: 0.8rem;
 }
 
+
 .form-container {
     display: flex;
     flex-direction: column;
@@ -41,7 +42,7 @@
     color: var(--gray-900);
 }
 
-@media (max-width: 900px) {
+@media (max-width : 900px) {
     .form-section {
         display: flex;
         flex-direction: column;
@@ -56,4 +57,5 @@
     .form-container {
         height: 100%;
     }
+    
 }

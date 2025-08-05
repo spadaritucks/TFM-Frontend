@@ -1,10 +1,10 @@
-import LoginForm from "@/components/forms/login-form/component";
 import './styles.css'
 import Image from "next/image";
-import Logo from '../../public/logo-tfm.png'
-import Logo2 from '../../public/tfm-logo-2.png'
+import Logo from '../../../public/logo-tfm.png'
+import Logo2 from '../../../public/tfm-logo-2.png'
+import RegisterForm from "@/components/forms/register-user-form/component";
 
-export default async function Home() {
+export default async function Register() {
   return (
     <section className="form-section">
       <div className="form-image-container">
@@ -15,8 +15,8 @@ export default async function Home() {
           <Image src={Logo2} alt="" width={307.2} />
           <p>Gestão Financeira | Praticidade | Metas | Dashboard</p>
         </div>
-        <h2>Login do Usuario</h2>
-        <LoginForm />
+        <h2>Registre-se gratuitamente</h2>
+        <RegisterForm />
       </div>
     </section>
   );
