@@ -1,0 +1,43 @@
+button {
+    padding: 10px 15px;
+    border-radius: 20px;
+    color: var(--white);
+    cursor: pointer;
+}
+
+.default {
+    background-color: var(--blue-500);
+    border: none;
+
+    &:hover {
+        opacity: 0.7;
+    }
+}
+
+.success {
+    background-color: var(--green-500);
+    border: none;
+
+    &:hover {
+        opacity: 0.7;
+    }
+}
+
+.destructive {
+    background-color: var(--rose-500);
+    border: none;
+
+    &:hover {
+        opacity: 0.7;
+    }
+}
+
+.link {
+    background-color: transparent;
+    border: none;
+    color: var(--gray-400);
+
+    &:hover {
+        opacity: 0.7;
+    }
+}
