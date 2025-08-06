@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Roboto } from "next/font/google";
 import "./globals.css";
-
+import {Toaster} from 'sonner'
 
 const roboto = Roboto({
   variable : "--font-roboto",
@@ -22,6 +22,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${roboto.className}`}>
         {children}
+        <Toaster/>
       </body>
     </html>
   );
