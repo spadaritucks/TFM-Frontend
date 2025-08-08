@@ -24,12 +24,13 @@ export async function GetAllTransactionsService(page: number, size: number): Pro
     if (response.status !== 200) {
         throw new Error("Erro no servidor")
     }
+    
 
     return response.data
 }
 
-export async function GetCurrentMonthTransactionsByUserIdService(userId: string | null, month: number, year: number, page: number, size: number)
-    : Promise<TransactionResponseDTO[]> {
+export async function GetCurrentMonthTransactionsByUserIdService(userId: string | null, month: number, year: number, page: string, size: number)
+    : Promise<TransactionResponseDTO> {
         const token = await getToken()
 
     const response = await api.get("/transactions/by-user", {
@@ -48,7 +49,7 @@ export async function GetCurrentMonthTransactionsByUserIdService(userId: string 
     if (response.status !== 200) {
         throw new Error("Erro no servidor")
     }
-
+    console.log(response)
     return response.data
 }
 

@@ -1,14 +1,16 @@
-import { TransactionResponseDTO } from "@/@types/DTOs/Transactions/TransactionResponseDTO"
+import { TransactionResponseDTO, TransactionsContentDTO } from "@/@types/DTOs/Transactions/TransactionResponseDTO"
 import './styles.css'
 import { TransactionTypeEnum } from "@/@types/Enums/TransactionTypeEnum"
 
 interface TransactionsItem {
-    transactions: TransactionResponseDTO
+    transactions: TransactionsContentDTO
     subcategory: string
 }
 
 export default function TransactionsItem({ transactions, subcategory }: TransactionsItem) {
 
+    
+    
 
     const transactionValue = transactions.transactionType === TransactionTypeEnum.INCOME ?
         transactions.transactionValue : - transactions.transactionValue
