@@ -1,13 +1,15 @@
 import type { Metadata } from "next";
 import { Roboto } from "next/font/google";
 import "./globals.css";
-import {Toaster} from 'sonner'
+import { Toaster } from 'sonner'
 import dayjs from "dayjs";
+import { ModalProvider } from "@/context/modal";
+import Modal from "@/components/modal/compontent";
 
 
 const roboto = Roboto({
-  variable : "--font-roboto",
-  subsets : ['latin']
+  variable: "--font-roboto",
+  subsets: ['latin']
 })
 
 
@@ -26,8 +28,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${roboto.className}`}>
-        {children}
-        <Toaster/>
+        <ModalProvider>
+          {children}
+          <Modal/>
+          <Toaster />
+        </ModalProvider>
       </body>
     </html>
   );

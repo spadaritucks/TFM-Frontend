@@ -30,7 +30,7 @@ export default async function Transactions({searchParams} : {searchParams : {[ke
     return (
         <MainLayout>
             <section className="section-panel">
-                <TransactionPanel transactions={transactions} subcategories={subcategories} />
+                <TransactionPanel transactions={transactions} subcategories={subcategories} userId={user.id} />
             </section>
         </MainLayout>
     )

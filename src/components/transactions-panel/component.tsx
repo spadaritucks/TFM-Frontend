@@ -14,15 +14,18 @@ import { SubcategoryResponseDTO } from "@/@types/DTOs/Subcategory/SubcategoryRes
 import { Pagination } from "../pagination/component"
 import { usePathname, useRouter, useSearchParams } from "next/navigation"
 import z from "zod"
+import { useModal } from "@/context/modal"
+import TransactionsForm from "../forms/transaction-form/component"
 
 interface TransactionPanel {
     transactions: TransactionResponseDTO
     subcategories: SubcategoryResponseDTO[] | undefined
+    userId : string
 }
 
 
 
-export default function TransactionPanel({ transactions, subcategories }: TransactionPanel) {
+export default function TransactionPanel({ transactions, subcategories, userId }: TransactionPanel) {
 
     const month = dayjs().format("MMMM")
     const year = dayjs().year()
@@ -61,12 +64,15 @@ export default function TransactionPanel({ transactions, subcategories }: Transa
 
     }
 
+    const {openModal} = useModal()
+
     return (
         <div className="panel">
             <div className="panel-content">
                 <div className="panel-header">
                     <h2>Transações</h2>
-                    <Button variant="default" name="Adicionar transação" />
+                    <Button variant="default" name="Adicionar transação" 
+                    onClick={() => openModal("Cadastrar Transação", <TransactionsForm userId={userId}/>)  } />
                 </div>
 
                 <div className="summary">
@@ -91,8 +97,8 @@ export default function TransactionPanel({ transactions, subcategories }: Transa
                     <div className="data-list-filters">
                         <div className="filters">
                             <Input type="date" />
-                            <Input type="text" placeholder=" Por Valor Minimo" />
-                            <Input type="text" placeholder=" Por Valor Maximo" />
+                            <Input type="text" placeholder="Por Valor Minimo" />
+                            <Input type="text" placeholder="Por Valor Maximo" />
                             <Select defaultValue={"0"}>
                                 <option value="0" disabled > Por Subcategoria</option>
                                 {subcategories && subcategories.map((subcategory, index) =>
