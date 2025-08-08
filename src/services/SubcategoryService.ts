@@ -7,7 +7,7 @@ import { getToken } from "@/utils/GetToken";
 
 
 
-export async function GetAllSubcategoriesService(page: number, size: number): Promise<SubcategoryResponseDTO[]> {
+export async function GetAllSubcategoriesService(page: number, size: number): Promise<SubcategoryResponseDTO> {
     
     const token = await getToken()
 
@@ -20,6 +20,7 @@ export async function GetAllSubcategoriesService(page: number, size: number): Pr
             "Authorization" : `Bearer ${token}`
         },
     })
+    console.log(response)
 
     if (response.status !== 200) {
         throw new Error("Erro no servidor")

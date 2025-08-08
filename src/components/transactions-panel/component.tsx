@@ -19,7 +19,7 @@ import TransactionsForm from "../forms/transaction-form/component"
 
 interface TransactionPanel {
     transactions: TransactionResponseDTO
-    subcategories: SubcategoryResponseDTO[] | undefined
+    subcategories: SubcategoryResponseDTO
     userId : string
 }
 
@@ -60,7 +60,7 @@ export default function TransactionPanel({ transactions, subcategories, userId }
     function Paginate(newPage : number) {
         const params = new URLSearchParams(searchParams.toString())
         params.set("page", (newPage + 1).toString())
-        router.replace(`${pathname}?${searchParams.toString()}`)
+        router.replace(`${pathname}?${params.toString()}`)
 
     }
 
@@ -72,7 +72,7 @@ export default function TransactionPanel({ transactions, subcategories, userId }
                 <div className="panel-header">
                     <h2>Transações</h2>
                     <Button variant="default" name="Adicionar transação" 
-                    onClick={() => openModal("Cadastrar Transação", <TransactionsForm userId={userId}/>)  } />
+                    onClick={() => openModal("Cadastrar Transação", <TransactionsForm userId={userId} subcategories={subcategories.content}/>)  } />
                 </div>
 
                 <div className="summary">
@@ -101,7 +101,7 @@ export default function TransactionPanel({ transactions, subcategories, userId }
                             <Input type="text" placeholder="Por Valor Maximo" />
                             <Select defaultValue={"0"}>
                                 <option value="0" disabled > Por Subcategoria</option>
-                                {subcategories && subcategories.map((subcategory, index) =>
+                                {subcategories.content && subcategories.content.map((subcategory, index) =>
                                     <option
                                         key={index}
                                         value={subcategory.categoryId}>
@@ -121,10 +121,10 @@ export default function TransactionPanel({ transactions, subcategories, userId }
                             />) : <p>Não há transações nesses mês</p>}
                     </div>
                     <Pagination
-                        page={transactions.page}
+                        page={page}
                         size={transactions.size}
                         totalElements={transactions.totalElements}
-                        onPageChange={() => Paginate(page)}
+                        onPageChange={Paginate}
                     />
 
                 </div>

@@ -49,7 +49,7 @@ export async function GetCurrentMonthTransactionsByUserIdService(userId: string 
     if (response.status !== 200) {
         throw new Error("Erro no servidor")
     }
-    console.log(response)
+  
     return response.data
 }
 

@@ -15,7 +15,10 @@ export default async function Transactions({searchParams} : {searchParams : {[ke
     const month = dayjs().month()
     const year = dayjs().year()
 
-    const page = searchParams.page || "0"
+    const pageString = searchParams.page || "1"
+    const pageNumber = Number(pageString)
+    const page = (pageNumber - 1).toString()
+    
 
     const transactions = await GetCurrentMonthTransactionsByUserIdService(
         user.id,
@@ -25,7 +28,7 @@ export default async function Transactions({searchParams} : {searchParams : {[ke
         10
     )
 
-    const subcategories = await GetAllSubcategoriesService(0, 10)
+    const subcategories = await GetAllSubcategoriesService(0, 20)
 
     return (
         <MainLayout>

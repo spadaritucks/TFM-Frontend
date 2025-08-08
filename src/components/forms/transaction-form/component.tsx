@@ -16,9 +16,11 @@ import { TransactionStatus } from "@/@types/Enums/TransactionStatus"
 import { toast } from "sonner"
 import { useEffect } from "react"
 import Textarea from "@/components/textarea/component"
+import { SubcategoryContentDTO } from "@/@types/DTOs/Subcategory/SubcategoryResponseDTO"
 
 interface TransactionsFormProps {
     userId: string
+    subcategories: SubcategoryContentDTO[]
 }
 
 
@@ -29,7 +31,7 @@ export const transactionSchema = z.object({
     transactionType: z.string({ message: "Tipo de transação é obrigatório" }), // pode virar enum depois: INCOME, EXPENSE etc.
     transactionValue: z.string({ message: "Valor da transação é obrigátorio" }),
     description: z.string({ message: "Descrição é obrigatória" }),
-    transactionDate: z.date(),
+    transactionDate: z.string(),
     recurrent: z.string(),
     transactionStatus: z.string(),
     recurrenceFrequency: z.string({ message: "A frequencia do pagamento é obrigatória" }) // pode virar enum depois: PENDING, COMPLETED etc.
@@ -37,13 +39,14 @@ export const transactionSchema = z.object({
 
 type TransactionsFormdata = z.infer<typeof transactionSchema>
 
-export default function TransactionsForm({ userId }: TransactionsFormProps) {
+export default function TransactionsForm({ userId, subcategories }: TransactionsFormProps) {
 
     const { handleSubmit, register, formState: { errors, isSubmitting }, watch, setValue } = useForm<TransactionsFormdata>({
         resolver: zodResolver(transactionSchema)
     })
     const recurrent = watch("recurrent")
     setValue("transactionStatus", TransactionStatus.COMPLETED);
+    const router = useRouter()
 
     useEffect(() => {
         if (userId) {
@@ -59,14 +62,15 @@ export default function TransactionsForm({ userId }: TransactionsFormProps) {
                 transactionType: data.transactionType as TransactionTypeEnum,
                 transactionValue: parseFloat(data.transactionValue),
                 description: data.description,
-                transactionDate: data.transactionDate.toISOString(),
+                transactionDate: new Date(data.transactionDate).toISOString(),
                 recurrent: data.recurrent == "true" ? true : false,
                 transactionStatus: data.transactionStatus as TransactionStatus,
                 recurrenceFrequency: data.recurrenceFrequency as RecurrenceFrequency
             })
 
 
-            toast.success("Usuario criado com sucesso")
+            toast.success("Transação registrada com sucesso")
+            router.refresh()
             // eslint-disable-next-line @typescript-eslint/no-explicit-any
         } catch (error: any) {
             toast.error(error.message)
@@ -76,7 +80,7 @@ export default function TransactionsForm({ userId }: TransactionsFormProps) {
 
     }
 
-    const router = useRouter()
+    
 
     return (
 
@@ -86,24 +90,30 @@ export default function TransactionsForm({ userId }: TransactionsFormProps) {
             <Select label="Tipo da Transação" defaultValue={"0"} {...register("transactionType")}>
                 <option value="0" disabled>Selecione</option>
                 <option value={TransactionTypeEnum.INCOME}>Entrada</option>
-                <option value={TransactionTypeEnum.EXPENSE}>Sailda</option>
+                <option value={TransactionTypeEnum.EXPENSE}>Saida</option>
             </Select>
 
             <Select label="Subcategoria" defaultValue={"0"} {...register("subCategoryId")}>
                 <option value="0" disabled>Selecione</option>
+                {subcategories && subcategories.map((subcategory, index) =>
+                    <option
+                        value={subcategory.id}
+                        key={index}
+                        >
+                        {subcategory.subcategoryName}
+                    </option>)}
             </Select>
 
             <Input
                 label="Valor da Transação"
                 type="text"
-                placeholder="jonhdoe@example.com"
+                placeholder="3000"
                 {...register("transactionValue")}
             />
 
             <Input
                 label="Data da Transação"
                 type="date"
-                placeholder="2000"
                 {...register("transactionDate")}
             />
 
