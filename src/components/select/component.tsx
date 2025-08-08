@@ -6,7 +6,7 @@ interface SelectProps extends SelectHTMLAttributes<HTMLSelectElement> {
 }
 
 
-export default function Input ({label, ...rest} : SelectProps) {
+export default function Select ({label, ...rest} : SelectProps) {
 
     return (
         <div className="select-wrapper">

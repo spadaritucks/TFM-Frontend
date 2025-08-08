@@ -1,0 +1,51 @@
+.transaction-item-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    width: 100%;
+    height: 80px;
+    border: 2px solid var(--gray-400);
+    box-shadow: 2px 2px 2px var(--gray-300);
+    padding: 10px 20px;
+    border-radius: 8px;   
+}
+
+.transaction-item-header{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.transaction-item-header span {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.transaction-item-header p {
+    font-size: 16px;
+}
+
+
+.transaction-item-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.transaction-item-content span{
+    color : var(--gray-400)
+}
+
+.transaction-item-content p{
+    color : var(--gray-400)
+}
+
+@media (max-width : 980px) {
+    .transaction-item-container{
+        width: 80%;
+    }
+}
