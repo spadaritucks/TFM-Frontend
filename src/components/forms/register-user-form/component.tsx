@@ -84,7 +84,7 @@ export default function RegisterForm() {
 
     return (
 
-        <form action="" onSubmit={handleSubmit(SubmitForm)} className="form">
+        <form action="" onSubmit={handleSubmit(SubmitForm)} className="register-form">
             <div className="grid-column">
                 <Input
                     label="Selecione sua Foto de Perfil"
@@ -137,7 +137,7 @@ export default function RegisterForm() {
 
             <div className="form-actions grid-column">
                 <Button name="Cadastrar-se" variant="default" type="submit" disabled={isSubmitting} />
-                <Button name="Voltar" variant="link" onClick={(() => router.push("/"))} />
+                <Button name="Voltar" variant="link" type="button" onClick={(() => router.push("/"))} />
             </div>
         </form>
     )

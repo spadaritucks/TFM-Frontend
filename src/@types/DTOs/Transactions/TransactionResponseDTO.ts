@@ -1,6 +1,7 @@
 import { RecurrenceFrequency } from "../../Enums/RecurrenceFrequency"
 import { TransactionStatus } from "../../Enums/TransactionStatus"
 import { TransactionTypeEnum } from "../../Enums/TransactionTypeEnum"
+import { SubcategoryContentDTO } from "../Subcategory/SubcategoryResponseDTO"
 
 export type TransactionResponseDTO = {
 
@@ -22,8 +23,8 @@ export type TransactionsContentDTO = {
     description: string
     transactionDate: string
     recurrent: boolean
-    transactionStatus: TransactionStatus
     recurrenceFrequency: RecurrenceFrequency
     createdAt: string
     updatedAt: string
+    subcategory : SubcategoryContentDTO
 }

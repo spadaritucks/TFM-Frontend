@@ -44,7 +44,7 @@ export default function LoginForm() {
     }
 
     return (
-        <form onSubmit={handleSubmit(SubmitLogin)} className="form">
+        <form onSubmit={handleSubmit(SubmitLogin)} className="login-form">
             <Input
                 label="Email"
                 type="email"
@@ -63,7 +63,7 @@ export default function LoginForm() {
             </div>
             <div className="form-actions">
                 <Button name="Entrar" variant="default" type="submit" disabled={isSubmitting} />
-                <Button name="Criar a sua conta" variant="link" onClick={(() => router.push("/register"))} />
+                <Button name="Criar a sua conta" type="button" variant="link" onClick={(() => router.push("/register"))} />
             </div>
         </form>
     )

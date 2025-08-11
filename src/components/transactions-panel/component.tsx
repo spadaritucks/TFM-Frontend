@@ -1,6 +1,5 @@
 "use client"
 import { TransactionResponseDTO } from "@/@types/DTOs/Transactions/TransactionResponseDTO"
-import { TransactionTypeEnum } from "@/@types/Enums/TransactionTypeEnum"
 import dayjs from "dayjs"
 import { useMemo } from "react"
 import { TransactionsAmountCounter } from "../transactions-amount-counter/component"
@@ -21,41 +20,27 @@ interface TransactionPanel {
     transactions: TransactionResponseDTO
     subcategories: SubcategoryResponseDTO
     userId : string
+    income : number
+    expense : number
 }
 
 
 
-export default function TransactionPanel({ transactions, subcategories, userId }: TransactionPanel) {
+export default function TransactionPanel({ transactions, subcategories, userId, income, expense }: TransactionPanel) {
 
     const month = dayjs().format("MMMM")
     const year = dayjs().year()
     const searchParams = useSearchParams()
     const router = useRouter()
     const pathname = usePathname()
+    
 
     const page = z.coerce
         .number()
         .transform(page => page - 1)
         .parse(searchParams.get('page') ?? "1")
 
-    const income = useMemo(() => {
-        const incomeValues = transactions.content ?
-            transactions.content.filter(transaction => transaction.transactionType == TransactionTypeEnum.INCOME) : undefined
-        const incomeSum = incomeValues ? incomeValues.reduce((acc, curr) => acc + curr.transactionValue, 0) : 0
-        return incomeSum
-    }, [transactions])
 
-    const expense = useMemo(() => {
-        const expenseValues = transactions.content ?
-            transactions.content.filter(transaction => transaction.transactionType == TransactionTypeEnum.EXPENSE) : undefined
-        const expenseSum = expenseValues ? expenseValues.reduce((acc, curr) => acc + curr.transactionValue, 0) : 0
-        return expenseSum
-    }, [transactions])
-
-    const total = useMemo(() => {
-        const transactionsTotal = transactions.content ? transactions.content.reduce((acc, curr) => acc + curr.transactionValue, 0) : 0
-        return transactionsTotal
-    }, [transactions])
 
     function Paginate(newPage : number) {
         const params = new URLSearchParams(searchParams.toString())
@@ -63,6 +48,11 @@ export default function TransactionPanel({ transactions, subcategories, userId }
         router.replace(`${pathname}?${params.toString()}`)
 
     }
+
+    const amount = useMemo(()=>{
+        const total = income - expense
+        return total
+    },[income, expense])
 
     const {openModal} = useModal()
 
@@ -87,7 +77,7 @@ export default function TransactionPanel({ transactions, subcategories, userId }
                         Icon={<CircleArrowDown color="#f43f5e" />}
                     />
                     <TransactionsAmountCounter
-                        counter={total}
+                        counter={amount}
                         title={`Total (${month} de ${year})`}
                         Icon={<SquareSigma color="#3b82f6" />}
                     />
@@ -104,7 +94,7 @@ export default function TransactionPanel({ transactions, subcategories, userId }
                                 {subcategories.content && subcategories.content.map((subcategory, index) =>
                                     <option
                                         key={index}
-                                        value={subcategory.categoryId}>
+                                        value={subcategory.id}>
                                         {subcategory.subcategoryName}
                                     </option>)}
                             </Select>
@@ -116,7 +106,6 @@ export default function TransactionPanel({ transactions, subcategories, userId }
                         {transactions.content && transactions.content.length > 0 ? transactions.content.map((transaction, index) =>
                             <TransactionsItem
                                 transactions={transaction}
-                                subcategory="Compra"
                                 key={index}
                             />) : <p>Não há transações nesses mês</p>}
                     </div>

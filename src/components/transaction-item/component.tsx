@@ -1,16 +1,12 @@
-import { TransactionResponseDTO, TransactionsContentDTO } from "@/@types/DTOs/Transactions/TransactionResponseDTO"
+import { TransactionsContentDTO } from "@/@types/DTOs/Transactions/TransactionResponseDTO"
 import './styles.css'
 import { TransactionTypeEnum } from "@/@types/Enums/TransactionTypeEnum"
 
 interface TransactionsItem {
     transactions: TransactionsContentDTO
-    subcategory: string
 }
 
-export default function TransactionsItem({ transactions, subcategory }: TransactionsItem) {
-
-    
-    
+export default function TransactionsItem({ transactions }: TransactionsItem) {
 
     const transactionValue = transactions.transactionType === TransactionTypeEnum.INCOME ?
         transactions.transactionValue : - transactions.transactionValue
@@ -28,7 +24,7 @@ export default function TransactionsItem({ transactions, subcategory }: Transact
                 })}</p>
             </div>
             <div className="transaction-item-content">
-                <span>{subcategory}</span>
+                <span>{transactions.subcategory.subcategoryName}</span>
                 <p>{new Date(transactions.transactionDate).toLocaleDateString("pt-br")}</p>
             </div>
         </div>

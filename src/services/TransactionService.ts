@@ -5,16 +5,16 @@ import { api } from "@/config/axios"
 import { getToken } from "@/utils/GetToken";
 
 
+export async function GetMonthCurrentTransactionAmountByUserIdService(userId: string | null, month: number, year: number, transactionType : string)
+    : Promise<number> {
+        const token = await getToken()
 
-
-export async function GetAllTransactionsService(page: number, size: number): Promise<TransactionResponseDTO[]> {
-
-    const token = await getToken()
-
-    const response = await api.get("/transactions", {
+    const response = await api.get("/transactions/month-amount", {
         params: {
-            page,
-            size
+            userId,
+            month,
+            year,
+            transactionType
         },
         headers : {
             "Authorization" : `Bearer ${token}`
@@ -24,9 +24,9 @@ export async function GetAllTransactionsService(page: number, size: number): Pro
     if (response.status !== 200) {
         throw new Error("Erro no servidor")
     }
-    
-
+  
     return response.data
+
 }
 
 export async function GetCurrentMonthTransactionsByUserIdService(userId: string | null, month: number, year: number, page: string, size: number)
@@ -52,6 +52,7 @@ export async function GetCurrentMonthTransactionsByUserIdService(userId: string 
   
     return response.data
 }
+
 
 
 

@@ -1,3 +1,5 @@
+import { CategoryContentDTO} from "../Category/CategoryResponseDTO"
+
 export type SubcategoryResponseDTO = {
 
 
@@ -17,4 +19,5 @@ export type SubcategoryContentDTO = {
     subcategoryName: string
     createdAt: string
     updatedAt: string
+    category : CategoryContentDTO
 }
