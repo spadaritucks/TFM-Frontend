@@ -1,7 +1,7 @@
 "use client"
 import { TransactionResponseDTO } from "@/@types/DTOs/Transactions/TransactionResponseDTO"
 import dayjs from "dayjs"
-import { useMemo } from "react"
+import { useMemo, useState } from "react"
 import { TransactionsAmountCounter } from "../transactions-amount-counter/component"
 import { CircleArrowDown, CircleArrowUp, SquareSigma } from "lucide-react"
 import './styles.css'
@@ -19,9 +19,9 @@ import TransactionsForm from "../forms/transaction-form/component"
 interface TransactionPanel {
     transactions: TransactionResponseDTO
     subcategories: SubcategoryResponseDTO
-    userId : string
-    income : number
-    expense : number
+    userId: string
+    income: number
+    expense: number
 }
 
 
@@ -33,7 +33,13 @@ export default function TransactionPanel({ transactions, subcategories, userId, 
     const searchParams = useSearchParams()
     const router = useRouter()
     const pathname = usePathname()
-    
+    const params = new URLSearchParams(searchParams.toString())
+
+    const [transactionDate, setTransactionDate] = useState<string | null>(null)
+    const [maxValue, setMaxValue] = useState<string | null>(null)
+    const [minValue, setMinValue] = useState<string | null>(null)
+    const [subcategory, setSubcategory] = useState<string | null>(null)
+
 
     const page = z.coerce
         .number()
@@ -42,27 +48,48 @@ export default function TransactionPanel({ transactions, subcategories, userId, 
 
 
 
-    function Paginate(newPage : number) {
-        const params = new URLSearchParams(searchParams.toString())
+    function Paginate(newPage: number) {
         params.set("page", (newPage + 1).toString())
         router.replace(`${pathname}?${params.toString()}`)
 
     }
 
-    const amount = useMemo(()=>{
+    function filters() {
+        if (transactionDate) params.set("transactionDate", transactionDate)
+        if (maxValue) params.set("maxValue", maxValue)
+        if (minValue) params.set("minValue", minValue)
+        if (subcategory) params.set("subcategory", subcategory)
+        router.replace(`${pathname}?${params.toString()}`)
+    }
+
+    function clearFilters() {
+        params.delete("transactionDate")
+        params.delete("maxValue")
+        params.delete("minValue")
+        params.delete("subcategory")
+
+        setTransactionDate("")
+        setMaxValue("")
+        setMinValue("")
+        setSubcategory(null)
+        router.push("?" + params.toString());
+    }
+
+
+    const amount = useMemo(() => {
         const total = income - expense
         return total
-    },[income, expense])
+    }, [income, expense])
 
-    const {openModal} = useModal()
+    const { openModal } = useModal()
 
     return (
         <div className="panel">
             <div className="panel-content">
                 <div className="panel-header">
                     <h2>Transações</h2>
-                    <Button variant="default" name="Adicionar transação" 
-                    onClick={() => openModal("Cadastrar Transação", <TransactionsForm userId={userId} subcategories={subcategories.content}/>)  } />
+                    <Button variant="default" name="Adicionar transação"
+                        onClick={() => openModal("Cadastrar Transação", <TransactionsForm userId={userId} subcategories={subcategories.content} />)} />
                 </div>
 
                 <div className="summary">
@@ -86,20 +113,37 @@ export default function TransactionPanel({ transactions, subcategories, userId, 
                 <div className="data-list">
                     <div className="data-list-filters">
                         <div className="filters">
-                            <Input type="date" />
-                            <Input type="text" placeholder="Por Valor Minimo" />
-                            <Input type="text" placeholder="Por Valor Maximo" />
-                            <Select defaultValue={"0"}>
-                                <option value="0" disabled > Por Subcategoria</option>
+                            <Input
+                                type="date"
+                                value={transactionDate ?? ""}
+                                onChange={(e) => setTransactionDate(e.target.value)}
+                            />
+                            <Input
+                                type="text"
+                                placeholder="Por Valor Minimo"
+                                value={minValue ?? ""}
+                                onChange={(e) => setMinValue(e.target.value)}
+                            />
+                            <Input
+                                type="text"
+                                placeholder="Por Valor Maximo"
+                                value={maxValue ?? ""}
+                                onChange={(e) => setMaxValue(e.target.value)}
+                            />
+                            <Select
+                                onChange={(e) => setSubcategory(e.target.value)}
+                                value={subcategory ?? "0"}
+                            >
+                                <option value="0" disabled >Por Subcategoria</option>
                                 {subcategories.content && subcategories.content.map((subcategory, index) =>
                                     <option
                                         key={index}
-                                        value={subcategory.id}>
+                                        value={subcategory.subcategoryName}>
                                         {subcategory.subcategoryName}
                                     </option>)}
                             </Select>
-                            <Button variant="default" name="Filtrar" />
-                            <Button variant="destructive" name="Limpar" />
+                            <Button variant="default" name="Filtrar" onClick={filters} />
+                            <Button variant="destructive" name="Limpar" onClick={clearFilters} />
                         </div>
                     </div>
                     <div className="itens-container">

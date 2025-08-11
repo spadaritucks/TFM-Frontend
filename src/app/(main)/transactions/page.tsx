@@ -13,8 +13,6 @@ import dayjs from "dayjs";
 export default async function Transactions({ searchParams }: { searchParams: { [key: string]: string } }) {
 
     const user = await GetCurrentUser()
-    const month = dayjs().month()
-    const year = dayjs().year()
 
 
     const pageString = searchParams.page || "1"
@@ -22,10 +20,25 @@ export default async function Transactions({ searchParams }: { searchParams: { [
     const page = (pageNumber - 1).toString()
 
 
+    const minValue = searchParams.minValue || null
+    const maxValue = searchParams.maxValue || null 
+    const subcategory = searchParams.subcategory || null
+    const transactionDate = searchParams.transactionDate || null
+
+    const currentMonth = dayjs().month()
+    const currentYear = dayjs().year()
+
+
+    const month = transactionDate ? dayjs(new Date(transactionDate)).month() : currentMonth 
+    const year = transactionDate ? dayjs(new Date(transactionDate)).year() : currentYear
+    
     const transactions = await GetCurrentMonthTransactionsByUserIdService(
         user.id,
         month + 1,
         year,
+        minValue,
+        maxValue,
+        subcategory,
         page,
         10
     )

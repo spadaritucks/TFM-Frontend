@@ -29,7 +29,16 @@ export async function GetMonthCurrentTransactionAmountByUserIdService(userId: st
 
 }
 
-export async function GetCurrentMonthTransactionsByUserIdService(userId: string | null, month: number, year: number, page: string, size: number)
+export async function GetCurrentMonthTransactionsByUserIdService(
+    userId: string | null, 
+    month: number, 
+    year: number,
+    minValue : string | null,
+    maxValue : string | null,
+    subcategory : string | null,
+    page: string, 
+    size: number
+)
     : Promise<TransactionResponseDTO> {
         const token = await getToken()
 
@@ -38,6 +47,9 @@ export async function GetCurrentMonthTransactionsByUserIdService(userId: string 
             userId,
             month,
             year,
+            minValue,
+            maxValue,
+            subcategory,
             page,
             size
         },
