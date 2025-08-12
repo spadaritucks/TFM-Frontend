@@ -10,7 +10,8 @@ import dayjs from "dayjs";
 
 
 
-export default async function Transactions({ searchParams }: { searchParams: { [key: string]: string } }) {
+export default async function Transactions(props: { searchParams: Promise<{ [key: string]: string }> }) {
+    const searchParams = await props.searchParams;
 
     const user = await GetCurrentUser()
 
@@ -21,7 +22,7 @@ export default async function Transactions({ searchParams }: { searchParams: { [
 
 
     const minValue = searchParams.minValue || null
-    const maxValue = searchParams.maxValue || null 
+    const maxValue = searchParams.maxValue || null
     const subcategory = searchParams.subcategory || null
     const transactionDate = searchParams.transactionDate || null
 
@@ -29,9 +30,9 @@ export default async function Transactions({ searchParams }: { searchParams: { [
     const currentYear = dayjs().year()
 
 
-    const month = transactionDate ? dayjs(new Date(transactionDate)).month() : currentMonth 
+    const month = transactionDate ? dayjs(new Date(transactionDate)).month() : currentMonth
     const year = transactionDate ? dayjs(new Date(transactionDate)).year() : currentYear
-    
+
     const transactions = await GetCurrentMonthTransactionsByUserIdService(
         user.id,
         month + 1,

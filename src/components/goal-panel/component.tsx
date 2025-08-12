@@ -30,8 +30,7 @@ interface GoalPanel {
 
 export default function GoalPanel({ goals, subcategories, userId, inProgressGoals, completedGoals, expiredGoals }: GoalPanel) {
 
-    const month = dayjs().format("MMMM")
-    const year = dayjs().year()
+
     const searchParams = useSearchParams()
     const router = useRouter()
     const pathname = usePathname()
@@ -90,16 +89,16 @@ export default function GoalPanel({ goals, subcategories, userId, inProgressGoal
                     <GoalsCounter
                         counter={inProgressGoals}
                         Icon={<CircleArrowUp color="#00875F" />}
-                        title={`Em Progresso (${month} de ${year})`}
+                        title={`Em Progresso `}
                     />
                     <GoalsCounter
                         counter={completedGoals}
-                        title={`Completas (${month} de ${year})`}
+                        title={`Completas`}
                         Icon={<CircleArrowDown color="#f43f5e" />}
                     />
                     <GoalsCounter
                         counter={expiredGoals}
-                        title={`Expirada (${month} de ${year})`}
+                        title={`Expirada `}
                         Icon={<SquareSigma color="#3b82f6" />}
                     />
                 </div>

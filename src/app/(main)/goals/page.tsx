@@ -5,7 +5,8 @@ import { GetGoalsByUserIdService, GetGoalsStatusCountByUserId } from "@/services
 import { GetAllSubcategoriesService } from "@/services/SubcategoryService";
 import { GetCurrentUser } from "@/utils/GetCurrentUser";
 
-export default async function Goals({ searchParams }: { searchParams: { [key: string]: string } }) {
+export default async function Goals(props: { searchParams: Promise<{ [key: string]: string }> }) {
+    const searchParams = await props.searchParams;
 
     const pageString = searchParams.page || "1"
     const pageNumber = Number(pageString)
