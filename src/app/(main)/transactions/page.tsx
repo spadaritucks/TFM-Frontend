@@ -17,7 +17,7 @@ export default async function Transactions({ searchParams }: { searchParams: { [
 
     const pageString = searchParams.page || "1"
     const pageNumber = Number(pageString)
-    const page = (pageNumber - 1).toString()
+    const page = (pageNumber - 1)
 
 
     const minValue = searchParams.minValue || null

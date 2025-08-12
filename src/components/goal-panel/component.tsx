@@ -1,11 +1,10 @@
 "use client"
-import { TransactionResponseDTO } from "@/@types/DTOs/Transactions/TransactionResponseDTO"
+import { GoalResponseDTO } from "@/@types/DTOs/Goals/GoalResponseDTO"
 import dayjs from "dayjs"
 import { useMemo, useState } from "react"
-import { TransactionsAmountCounter } from "../transactions-amount-counter/component"
 import { CircleArrowDown, CircleArrowUp, SquareSigma } from "lucide-react"
 import './styles.css'
-import TransactionsItem from "../transaction-item/component"
+import GoalsItem from "../goal-item/component"
 import Button from "../button/component"
 import Input from "../input/component"
 import Select from "../select/component"
@@ -14,19 +13,22 @@ import { Pagination } from "../pagination/component"
 import { usePathname, useRouter, useSearchParams } from "next/navigation"
 import z from "zod"
 import { useModal } from "@/context/modal"
-import TransactionsForm from "../forms/transaction-form/component"
+import GoalsForm from "../forms/goal-form/component"
+import { GoalStatus } from "@/@types/Enums/GoalStatus"
+import { GoalsCounter } from "../goal-counter/component"
 
-interface TransactionPanel {
-    transactions: TransactionResponseDTO
+interface GoalPanel {
+    goals: GoalResponseDTO
     subcategories: SubcategoryResponseDTO
     userId: string
-    income: number
-    expense: number
+    inProgressGoals: number
+    completedGoals: number
+    expiredGoals : number
 }
 
 
 
-export default function TransactionPanel({ transactions, subcategories, userId, income, expense }: TransactionPanel) {
+export default function GoalPanel({ goals, subcategories, userId, inProgressGoals, completedGoals, expiredGoals }: GoalPanel) {
 
     const month = dayjs().format("MMMM")
     const year = dayjs().year()
@@ -35,9 +37,9 @@ export default function TransactionPanel({ transactions, subcategories, userId, 
     const pathname = usePathname()
     const params = new URLSearchParams(searchParams.toString())
 
-    const [transactionDate, setTransactionDate] = useState<string | null>(null)
-    const [maxValue, setMaxValue] = useState<string | null>(null)
-    const [minValue, setMinValue] = useState<string | null>(null)
+
+    const [goalStatus, setGoalStatus] = useState<string | null>(null)
+    const [goalName, setGoalName] = useState<string | null>(null)
     const [subcategory, setSubcategory] = useState<string | null>(null)
 
 
@@ -55,31 +57,23 @@ export default function TransactionPanel({ transactions, subcategories, userId, 
     }
 
     function filters() {
-        if (transactionDate) params.set("transactionDate", transactionDate)
-        if (maxValue) params.set("maxValue", maxValue)
-        if (minValue) params.set("minValue", minValue)
+        if (goalStatus) params.set("goalStatus", goalStatus)
+        if (goalName) params.set("goalName", goalName)
         if (subcategory) params.set("subcategory", subcategory)
         router.replace(`${pathname}?${params.toString()}`)
     }
 
     function clearFilters() {
-        params.delete("transactionDate")
-        params.delete("maxValue")
-        params.delete("minValue")
+        params.delete("goalStatus")
+        params.delete("goalName")
         params.delete("subcategory")
 
-        setTransactionDate("")
-        setMaxValue("")
-        setMinValue("")
+        setGoalStatus("")
+        setGoalName("")
         setSubcategory(null)
         router.push("?" + params.toString());
     }
 
-
-    const amount = useMemo(() => {
-        const total = income - expense
-        return total
-    }, [income, expense])
 
     const { openModal } = useModal()
 
@@ -87,25 +81,25 @@ export default function TransactionPanel({ transactions, subcategories, userId, 
         <div className="panel">
             <div className="panel-content">
                 <div className="panel-header">
-                    <h2>Transações</h2>
-                    <Button variant="default" name="Adicionar transação"
-                        onClick={() => openModal("Cadastrar Transação", <TransactionsForm userId={userId} subcategories={subcategories.content} />)} />
+                    <h2>Metas</h2>
+                    <Button variant="default" name="Adicionar Meta"
+                        onClick={() => openModal("Cadastrar Metas", <GoalsForm userId={userId} subcategories={subcategories.content} />)} />
                 </div>
 
                 <div className="summary">
-                    <TransactionsAmountCounter
-                        counter={income}
+                    <GoalsCounter
+                        counter={inProgressGoals}
                         Icon={<CircleArrowUp color="#00875F" />}
-                        title={`Entrada (${month} de ${year})`}
+                        title={`Em Progresso (${month} de ${year})`}
                     />
-                    <TransactionsAmountCounter
-                        counter={expense}
-                        title={`Saida (${month} de ${year})`}
+                    <GoalsCounter
+                        counter={completedGoals}
+                        title={`Completas (${month} de ${year})`}
                         Icon={<CircleArrowDown color="#f43f5e" />}
                     />
-                    <TransactionsAmountCounter
-                        counter={amount}
-                        title={`Total (${month} de ${year})`}
+                    <GoalsCounter
+                        counter={expiredGoals}
+                        title={`Expirada (${month} de ${year})`}
                         Icon={<SquareSigma color="#3b82f6" />}
                     />
                 </div>
@@ -114,22 +108,20 @@ export default function TransactionPanel({ transactions, subcategories, userId, 
                     <div className="data-list-filters">
                         <div className="filters">
                             <Input
-                                type="date"
-                                value={transactionDate ?? ""}
-                                onChange={(e) => setTransactionDate(e.target.value)}
-                            />
-                            <Input
                                 type="text"
-                                placeholder="Por Valor Minimo"
-                                value={minValue ?? ""}
-                                onChange={(e) => setMinValue(e.target.value)}
+                                placeholder="Nome da Meta"
+                                value={goalName ?? ""}
+                                onChange={(e) => setGoalName(e.target.value)}
                             />
-                            <Input
-                                type="text"
-                                placeholder="Por Valor Maximo"
-                                value={maxValue ?? ""}
-                                onChange={(e) => setMaxValue(e.target.value)}
-                            />
+                            <Select
+                                onChange={(e) => setGoalStatus(e.target.value)}
+                                value={goalStatus ?? "0"}
+                            >
+                                <option value="0" disabled >Por Status</option>
+                                <option value={GoalStatus.InProgress}>Em Progresso</option>
+                                <option value={GoalStatus.Completed}>Completa</option>
+                                <option value={GoalStatus.Expired}>Expirado</option>
+                            </Select>
                             <Select
                                 onChange={(e) => setSubcategory(e.target.value)}
                                 value={subcategory ?? "0"}
@@ -149,16 +141,16 @@ export default function TransactionPanel({ transactions, subcategories, userId, 
                         </div>
                     </div>
                     <div className="itens-container">
-                        {transactions.content && transactions.content.length > 0 ? transactions.content.map((transaction, index) =>
-                            <TransactionsItem
-                                transactions={transaction}
+                        {goals.content && goals.content.length > 0 ? goals.content.map((goal, index) =>
+                            <GoalsItem
+                                goals={goal}
                                 key={index}
-                            />) : <p>Não há transações nesses mês</p>}
+                            />) : <p>Metas não encontradas</p>}
                     </div>
                     <Pagination
                         page={page}
-                        size={transactions.size}
-                        totalElements={transactions.totalElements}
+                        size={goals.size}
+                        totalElements={goals.totalElements}
                         onPageChange={Paginate}
                     />
 

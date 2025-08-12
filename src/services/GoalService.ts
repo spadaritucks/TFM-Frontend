@@ -27,17 +27,51 @@ export async function GetAllGoalsService(page: string, size: string): Promise<Go
 
     return response.data
 
+
 }
 
-export async function GetGoalsByUserIdService(userId: string | null, page: number, size: number): Promise<GoalResponseDTO[]> {
+export async function GetGoalsByUserIdService(
+    userId: string | null, 
+    subcategory : string | null,
+    goalName : string | null,
+    goalStatus : string | null,
+    page: number, 
+    size: number
+): Promise<GoalResponseDTO> {
 
     const token = await getToken()
    
     const response = await api.get("/goals/by-user", {
         params: {
             userId,
+            subcategory,
+            goalName,
+            goalStatus,
             page,
             size
+        },
+        headers : {
+            "Authorization" : `Bearer ${token}`
+        }
+    })
+
+    if (response.status !== 200) {
+        throw new Error("Erro no servidor")
+    }
+
+    return response.data
+
+
+}
+
+export async function GetGoalsStatusCountByUserId(userId: string | null, goalStatus : string): Promise<number> {
+
+    const token = await getToken()
+   
+    const response = await api.get("/goals/count-goals", {
+        params: {
+            userId,
+            goalStatus
         },
         headers : {
             "Authorization" : `Bearer ${token}`

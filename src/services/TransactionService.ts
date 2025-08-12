@@ -36,7 +36,7 @@ export async function GetCurrentMonthTransactionsByUserIdService(
     minValue : string | null,
     maxValue : string | null,
     subcategory : string | null,
-    page: string, 
+    page: number, 
     size: number
 )
     : Promise<TransactionResponseDTO> {
