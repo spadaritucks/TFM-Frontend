@@ -9,8 +9,15 @@
     border: 2px solid var(--gray-400);
     box-shadow: 2px 2px 2px var(--gray-300);
     padding: 10px 20px;
-    border-radius: 8px;   
+    border-radius: 8px;
+    cursor: pointer;
+
+    &:hover{
+        opacity: 0.7;
+    }
 }
+
+
 
 .transaction-item-header{
     display: flex;
