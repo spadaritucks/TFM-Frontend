@@ -12,7 +12,6 @@ import Select from "@/components/select/component"
 import { TransactionTypeEnum } from "@/@types/Enums/TransactionTypeEnum"
 import { RecurrenceFrequency } from "@/@types/Enums/RecurrenceFrequency"
 import { CreateTransactionService } from "@/services/TransactionService"
-import { TransactionStatus } from "@/@types/Enums/TransactionStatus"
 import { toast } from "sonner"
 import { useEffect } from "react"
 import Textarea from "@/components/textarea/component"
@@ -45,7 +44,6 @@ export default function TransactionsForm({ userId, subcategories }: Transactions
         resolver: zodResolver(transactionSchema)
     })
     const recurrent = watch("recurrent")
-    setValue("transactionStatus", TransactionStatus.COMPLETED);
     const router = useRouter()
 
     useEffect(() => {
@@ -64,7 +62,6 @@ export default function TransactionsForm({ userId, subcategories }: Transactions
                 description: data.description,
                 transactionDate: new Date(data.transactionDate).toISOString(),
                 recurrent: data.recurrent == "true" ? true : false,
-                transactionStatus: data.transactionStatus as TransactionStatus,
                 recurrenceFrequency: data.recurrenceFrequency as RecurrenceFrequency
             })
 

@@ -1,0 +1,19 @@
+.dashboard-container{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    width: 100%;
+}
+
+.dashboard-header{
+    display: flex;
+    align-items: flex-start;
+    width: 100%;
+}
+
+.dashboard-grid-content{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    
+}

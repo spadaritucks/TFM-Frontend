@@ -9,13 +9,12 @@ import z from "zod"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import Select from "@/components/select/component"
-import { RecurrenceFrequency } from "@/@types/Enums/RecurrenceFrequency"
 import { CreateGoalService } from "@/services/GoalService"
 import { GoalStatus } from "@/@types/Enums/GoalStatus"
 import { toast } from "sonner"
 import { useEffect } from "react"
-import Textarea from "@/components/textarea/component"
 import { SubcategoryContentDTO } from "@/@types/DTOs/Subcategory/SubcategoryResponseDTO"
+import { GoalType } from "@/@types/Enums/GoalType"
 
 interface GoalsFormProps {
     userId: string
@@ -28,6 +27,7 @@ export const createGoalSchema = z.object({
     userId: z.string(),
     subCategoryId: z.string().min(1, "Subcategoria é obrigatória"),
     goalName: z.string().min(1, "Nome da meta é obrigatório"),
+    goalType: z.string().min(1, "O Tipo da meta é obriagátorio"),
     targetValue: z.string().min(1, "Valor da meta é obrigatório"),
     startDate: z.string().min(1, "Data inicial é obrigatória"),
     endDate: z.string().min(1, "Data final é obrigatória"),
@@ -58,6 +58,7 @@ export default function GoalsForm({ userId, subcategories }: GoalsFormProps) {
                 userId: data.userId,
                 subCategoryId: data.subCategoryId,
                 goalName: data.goalName,
+                goalType : data.goalType,
                 targetValue: parseFloat(data.targetValue),
                 startDate: new Date(data.startDate).toISOString(),
                 endDate: new Date(data.endDate).toISOString(),
@@ -105,6 +106,17 @@ export default function GoalsForm({ userId, subcategories }: GoalsFormProps) {
                 {...register("goalName")}
                 errorMessage={errors.goalName?.message ? errors.goalName.message : undefined}
             />
+
+            <Select
+                label="Tipo da Meta"
+                defaultValue={"0"}
+                {...register("goalType")}
+                errorMessage={errors.goalType?.message ? errors.goalType.message : undefined}
+            >
+                <option value="0">Selecione</option>
+                <option value={GoalType.INCOME}>Meta de entrada</option>
+                <option value={GoalType.EXPENSE}>Meta de Gastos</option>
+            </Select>
 
             <Input
                 label="Valor a ser atingido"
