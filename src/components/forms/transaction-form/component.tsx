@@ -40,7 +40,7 @@ type TransactionsFormdata = z.infer<typeof transactionSchema>
 
 export default function TransactionsForm({ userId, subcategories }: TransactionsFormProps) {
 
-    const { handleSubmit, register, formState: { errors, isSubmitting }, watch, setValue } = useForm<TransactionsFormdata>({
+    const { handleSubmit, register, formState: {isSubmitting }, watch, setValue } = useForm<TransactionsFormdata>({
         resolver: zodResolver(transactionSchema)
     })
     const recurrent = watch("recurrent")

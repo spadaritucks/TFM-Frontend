@@ -46,7 +46,7 @@ type RegisterFormdata = z.infer<typeof registerUserSchema>
 
 export default function RegisterForm() {
 
-    const { handleSubmit, register, formState: { errors, isSubmitting }, } = useForm<RegisterFormdata>({
+    const { handleSubmit, register, formState: { isSubmitting } } = useForm<RegisterFormdata>({
         resolver: zodResolver(registerUserSchema)
     })
 
@@ -55,8 +55,6 @@ export default function RegisterForm() {
             if (!(data.password === data.confirm_password)) {
                 return alert("As duas senhas não correspondem")
             }
-
-            console.log(data)
 
             const formdata = new FormData()
             formdata.append("userPhoto", data.userPhoto)

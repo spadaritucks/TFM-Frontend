@@ -1,5 +1,4 @@
 'use server'
-import { UserRequestDTO } from "@/@types/DTOs/Users/UserRequestDTO"
 import { UserResponseDTO } from "@/@types/DTOs/Users/UserResponseDTO"
 import { api } from "@/config/axios"
 import { getToken } from "@/utils/GetToken";

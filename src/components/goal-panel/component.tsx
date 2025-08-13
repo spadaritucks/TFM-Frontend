@@ -1,7 +1,6 @@
 "use client"
 import { GoalResponseDTO } from "@/@types/DTOs/Goals/GoalResponseDTO"
-import dayjs from "dayjs"
-import { useMemo, useState } from "react"
+import { useState } from "react"
 import { CircleArrowDown, CircleArrowUp, SquareSigma } from "lucide-react"
 import './styles.css'
 import GoalsItem from "../goal-item/component"

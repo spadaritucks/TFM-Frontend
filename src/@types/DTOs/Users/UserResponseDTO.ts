@@ -1,6 +1,6 @@
 export type UserResponseDTO = {
     id: string
-    userPhoto?: any;
+    userPhoto?: string;
     name: string;
     email: string;
     phone: string;

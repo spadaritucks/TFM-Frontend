@@ -23,7 +23,7 @@ export default function LoginForm() {
 
     const router = useRouter()
 
-    const { handleSubmit, register, formState: { errors, isSubmitting } } = useForm<LoginFormdata>({
+    const { handleSubmit, register, formState: { isSubmitting } } = useForm<LoginFormdata>({
         resolver: zodResolver(loginUserSchema)
     })
 

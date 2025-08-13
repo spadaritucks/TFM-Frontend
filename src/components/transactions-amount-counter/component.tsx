@@ -1,7 +1,6 @@
-import { LucideProps } from 'lucide-react'
+import { ReactNode } from 'react'
 import './styles.css'
-import { TransactionResponseDTO } from '@/@types/DTOs/Transactions/TransactionResponseDTO'
-import { ForwardRefExoticComponent, ReactNode } from 'react'
+
 
 interface TranscationTotal {
     counter: number

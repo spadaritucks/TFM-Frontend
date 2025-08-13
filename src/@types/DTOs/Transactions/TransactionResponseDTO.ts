@@ -1,5 +1,4 @@
 import { RecurrenceFrequency } from "../../Enums/RecurrenceFrequency"
-import { TransactionStatus } from "../../Enums/TransactionStatus"
 import { TransactionTypeEnum } from "../../Enums/TransactionTypeEnum"
 import { SubcategoryContentDTO } from "../Subcategory/SubcategoryResponseDTO"
 

@@ -1,5 +1,5 @@
 export type UserRequestDTO = {
-    userPhoto?: any;
+    userPhoto?: File;
     name: string;
     email: string;
     phone: string;
