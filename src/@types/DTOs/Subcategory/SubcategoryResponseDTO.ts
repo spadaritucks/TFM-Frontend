@@ -1,23 +1,13 @@
-import { CategoryContentDTO} from "../Category/CategoryResponseDTO"
+import { CategoryResponseDTO } from "../Category/CategoryResponseDTO"
+
 
 export type SubcategoryResponseDTO = {
-
-
-    page: number
-    size: number
-    totalPages: number
-    totalElements: number
-    last: boolean
-
-    content : SubcategoryContentDTO[]
-
-}
-
-export type SubcategoryContentDTO = {
     id: string
     categoryId: string
+    userId : string
     subcategoryName: string
     createdAt: string
     updatedAt: string
-    category : CategoryContentDTO
+    category : CategoryResponseDTO
 }
+

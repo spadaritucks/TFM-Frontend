@@ -26,4 +26,6 @@ export type GoalContentDTO = {
     createdAt: string
     updatedAt:string
     subcategory : SubcategoryContentDTO
+    currentAmount: number
 }
+

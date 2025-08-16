@@ -1,17 +1,17 @@
 'use server'
-import { SubcategoryRequestDTO } from "@/@types/DTOs/Subcategory/SubcategoryRequestDTO"
-import { SubcategoryResponseDTO } from "@/@types/DTOs/Subcategory/SubcategoryResponseDTO"
+import { CategoryRequestDTO } from "@/@types/DTOs/Category/CategoryRequestDTO"
+import { CategoryResponseDTO } from "@/@types/DTOs/Category/CategoryResponseDTO"
 import { api } from "@/config/axios"
 import { getToken } from "@/utils/GetToken";
 
 
 
 
-export async function GetAllSubcategoriesService(userId : string): Promise<SubcategoryResponseDTO[]> {
+export async function GetAllCategoriesService(userId : string): Promise<CategoryResponseDTO[]> {
     
     const token = await getToken()
 
-    const response = await api.get("/subcategories", {
+    const response = await api.get("/categories", {
         params: {
             userId
         },
@@ -31,11 +31,11 @@ export async function GetAllSubcategoriesService(userId : string): Promise<Subca
 
 
 
-export async function CreateSubcategoryService(subcategoryRequestDTO: SubcategoryRequestDTO, userId : string) {
+export async function CreateCategoryService(categoryRequestDTO: CategoryRequestDTO, userId : string) {
 
     const token = await getToken()
 
-    const response = await api.post("/subcategories", subcategoryRequestDTO,{
+    const response = await api.post("/categories", categoryRequestDTO,{
         headers : {
             "Authorization" : `Bearer ${token}`
         },

@@ -5,7 +5,7 @@ import Input from "@/components/input/component"
 import './styles.css'
 import Button from "@/components/button/component"
 import { useRouter } from "next/navigation"
-import z from "zod"
+import z, { string } from "zod"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import Select from "@/components/select/component"
@@ -15,11 +15,11 @@ import { CreateTransactionService } from "@/services/TransactionService"
 import { toast } from "sonner"
 import { useEffect } from "react"
 import Textarea from "@/components/textarea/component"
-import { SubcategoryContentDTO } from "@/@types/DTOs/Subcategory/SubcategoryResponseDTO"
+import {SubcategoryResponseDTO } from "@/@types/DTOs/Subcategory/SubcategoryResponseDTO"
 
 interface TransactionsFormProps {
     userId: string
-    subcategories: SubcategoryContentDTO[]
+    subcategories: SubcategoryResponseDTO[]
 }
 
 
@@ -32,15 +32,14 @@ export const transactionSchema = z.object({
     description: z.string({ message: "Descrição é obrigatória" }),
     transactionDate: z.string(),
     recurrent: z.string(),
-    transactionStatus: z.string(),
-    recurrenceFrequency: z.string({ message: "A frequencia do pagamento é obrigatória" }) // pode virar enum depois: PENDING, COMPLETED etc.
+    recurrenceFrequency: z.optional(z.string()) // pode virar enum depois: PENDING, COMPLETED etc.
 });
 
 type TransactionsFormdata = z.infer<typeof transactionSchema>
 
 export default function TransactionsForm({ userId, subcategories }: TransactionsFormProps) {
 
-    const { handleSubmit, register, formState: {isSubmitting }, watch, setValue } = useForm<TransactionsFormdata>({
+    const { handleSubmit, register, formState: { isSubmitting, errors }, watch, setValue } = useForm<TransactionsFormdata>({
         resolver: zodResolver(transactionSchema)
     })
     const recurrent = watch("recurrent")
@@ -77,26 +76,36 @@ export default function TransactionsForm({ userId, subcategories }: Transactions
 
     }
 
-    
+
+    console.log(errors)
 
     return (
 
         <form action="" onSubmit={handleSubmit(SubmitForm)} className="form">
 
 
-            <Select label="Tipo da Transação" defaultValue={"0"} {...register("transactionType")}>
+            <Select
+                label="Tipo da Transação" defaultValue={"0"}
+                {...register("transactionType")}
+                errorMessage={errors.transactionType?.message ? errors.transactionType.message : undefined}
+            >
                 <option value="0" disabled>Selecione</option>
                 <option value={TransactionTypeEnum.INCOME}>Entrada</option>
                 <option value={TransactionTypeEnum.EXPENSE}>Saida</option>
             </Select>
 
-            <Select label="Subcategoria" defaultValue={"0"} {...register("subCategoryId")}>
+            <Select
+                label="Subcategoria"
+                defaultValue={"0"}
+                {...register("subCategoryId")}
+                errorMessage={errors.subCategoryId?.message ? errors.subCategoryId.message : undefined}
+            >
                 <option value="0" disabled>Selecione</option>
                 {subcategories && subcategories.map((subcategory, index) =>
                     <option
                         value={subcategory.id}
                         key={index}
-                        >
+                    >
                         {subcategory.subcategoryName}
                     </option>)}
             </Select>
@@ -106,12 +115,14 @@ export default function TransactionsForm({ userId, subcategories }: Transactions
                 type="text"
                 placeholder="3000"
                 {...register("transactionValue")}
+                errorMessage={errors.transactionValue?.message ? errors.transactionValue.message : undefined}
             />
 
             <Input
                 label="Data da Transação"
                 type="date"
                 {...register("transactionDate")}
+                errorMessage={errors.transactionDate?.message ? errors.transactionDate.message : undefined}
             />
 
             <div className="grid-column">
@@ -120,17 +131,28 @@ export default function TransactionsForm({ userId, subcategories }: Transactions
                     placeholder="Pagamento do Uber"
                     rows={4} cols={16}
                     {...register("description")}
+                    errorMessage={errors.description?.message ? errors.description.message : undefined}
                 />
             </div>
 
-            <Select label="Recorrencia" defaultValue={"0"} {...register("recurrent")}>
+            <Select
+                label="Recorrencia"
+                defaultValue={"0"}
+                {...register("recurrent")}
+                errorMessage={errors.recurrent?.message ? errors.recurrent.message : undefined}
+            >
                 <option value="0" disabled>Selecione </option>
                 <option value="true" >Sim</option>
                 <option value="false">Não</option>
             </Select>
 
-            {recurrent &&
-                <Select label="Frequencia de Recorrencia" defaultValue={"0"} {...register("recurrenceFrequency")}>
+            {recurrent == "true" &&
+                <Select
+                    label="Frequencia de Recorrencia"
+                    defaultValue={"0"}
+                    {...register("recurrenceFrequency")}
+                    errorMessage={errors.recurrenceFrequency?.message ? errors.recurrenceFrequency.message : undefined}
+                >
                     <option value="0" disabled >Selecione </option>
                     <option value={RecurrenceFrequency.DAILY} >Diario</option>
                     <option value={RecurrenceFrequency.WEEKLY} >Semanal</option>

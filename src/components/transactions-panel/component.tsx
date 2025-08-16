@@ -15,18 +15,18 @@ import { usePathname, useRouter, useSearchParams } from "next/navigation"
 import z from "zod"
 import { useModal } from "@/context/modal"
 import TransactionsForm from "../forms/transaction-form/component"
+import { TransactionAmountDTO } from "@/@types/DTOs/Transactions/TransactionAmountDTO"
 
 interface TransactionPanel {
     transactions: TransactionResponseDTO
-    subcategories: SubcategoryResponseDTO
+    subcategories: SubcategoryResponseDTO[]
     userId: string
-    income: number
-    expense: number
+    amount : TransactionAmountDTO
 }
 
 
 
-export default function TransactionPanel({ transactions, subcategories, userId, income, expense }: TransactionPanel) {
+export default function TransactionPanel({ transactions, subcategories, userId, amount }: TransactionPanel) {
 
     const month = dayjs().format("MMMM")
     const year = dayjs().year()
@@ -76,43 +76,39 @@ export default function TransactionPanel({ transactions, subcategories, userId, 
     }
 
 
-    const amount = useMemo(() => {
-        const total = income - expense
-        return total
-    }, [income, expense])
 
     const { openModal } = useModal()
 
     return (
-        <div className="panel">
-            <div className="panel-content">
-                <div className="panel-header">
+        <div className="transaction-panel">
+            <div className="transaction-panel-content">
+                <div className="transaction-panel-header">
                     <h2>Transações</h2>
                     <Button variant="default" name="Adicionar transação"
-                        onClick={() => openModal("Cadastrar Transação", <TransactionsForm userId={userId} subcategories={subcategories.content} />)} />
+                        onClick={() => openModal("Cadastrar Transação", <TransactionsForm userId={userId} subcategories={subcategories} />)} />
                 </div>
 
-                <div className="summary">
+                <div className="transaction-summary">
                     <TransactionsAmountCounter
-                        counter={income}
+                        counter={amount.income}
                         Icon={<CircleArrowUp color="#00875F" />}
                         title={`Entrada (${month} de ${year})`}
                     />
                     <TransactionsAmountCounter
-                        counter={expense}
+                        counter={amount.expense}
                         title={`Saida (${month} de ${year})`}
                         Icon={<CircleArrowDown color="#f43f5e" />}
                     />
                     <TransactionsAmountCounter
-                        counter={amount}
+                        counter={amount.total}
                         title={`Total (${month} de ${year})`}
                         Icon={<SquareSigma color="#3b82f6" />}
                     />
                 </div>
 
-                <div className="data-list">
-                    <div className="data-list-filters">
-                        <div className="filters">
+                <div className="transaction-data-list">
+                    <div className="transaction-data-list-filters">
+                        <div className="transaction-filters">
                             <Input
                                 type="date"
                                 value={transactionDate ?? ""}
@@ -135,20 +131,20 @@ export default function TransactionPanel({ transactions, subcategories, userId, 
                                 value={subcategory ?? "0"}
                             >
                                 <option value="0" disabled >Por Subcategoria</option>
-                                {subcategories.content && subcategories.content.map((subcategory, index) =>
+                                {subcategories && subcategories.map((subcategory, index) =>
                                     <option
                                         key={index}
                                         value={subcategory.subcategoryName}>
                                         {subcategory.subcategoryName}
                                     </option>)}
                             </Select>
-                            <div className="filters-buttons">
+                            <div className="transaction-filters-buttons">
                                 <Button variant="default" name="Filtrar" onClick={filters} />
                                 <Button variant="destructive" name="Limpar" onClick={clearFilters} />
                             </div>
                         </div>
                     </div>
-                    <div className="itens-container">
+                    <div className="transaction-itens-container">
                         {transactions.content && transactions.content.length > 0 ? transactions.content.map((transaction, index) =>
                             <TransactionsItem
                                 transactions={transaction}

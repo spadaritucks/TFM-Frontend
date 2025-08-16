@@ -1,0 +1,25 @@
+.subcategory-details {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    width: 400px;
+}
+
+
+.info {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 5px;
+    width: 100%;
+    height: 30px;
+}
+
+.info span {
+    font-weight: 500;
+}
+
+.info p {
+    color: var(--gray-400);
+}

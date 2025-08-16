@@ -13,12 +13,12 @@ import { CreateGoalService } from "@/services/GoalService"
 import { GoalStatus } from "@/@types/Enums/GoalStatus"
 import { toast } from "sonner"
 import { useEffect } from "react"
-import { SubcategoryContentDTO } from "@/@types/DTOs/Subcategory/SubcategoryResponseDTO"
 import { GoalType } from "@/@types/Enums/GoalType"
+import { SubcategoryResponseDTO } from "@/@types/DTOs/Subcategory/SubcategoryResponseDTO"
 
 interface GoalsFormProps {
     userId: string
-    subcategories: SubcategoryContentDTO[]
+    subcategories: SubcategoryResponseDTO[]
 }
 
 

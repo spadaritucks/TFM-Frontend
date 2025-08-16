@@ -1,4 +1,5 @@
 'use server'
+import { GoalCountDTO } from "@/@types/DTOs/Goals/GoalCountDTO";
 import { GoalRequestDTO } from "@/@types/DTOs/Goals/GoalRequestDTO";
 import { GoalResponseDTO } from "@/@types/DTOs/Goals/GoalResponseDTO";
 import { api } from "@/config/axios";
@@ -64,14 +65,13 @@ export async function GetGoalsByUserIdService(
 
 }
 
-export async function GetGoalsStatusCountByUserId(userId: string | null, goalStatus : string): Promise<number> {
+export async function GetGoalsStatusCountByUserId(userId: string | null): Promise<GoalCountDTO> {
 
     const token = await getToken()
    
     const response = await api.get("/goals/count-goals", {
         params: {
-            userId,
-            goalStatus
+            userId
         },
         headers : {
             "Authorization" : `Bearer ${token}`

@@ -1,4 +1,4 @@
-.panel{
+.transaction-panel{
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -7,27 +7,28 @@
     width: 100%;
 }
 
-.panel-content{
+.transaction-panel-content{
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    gap: 10px;
 }
 
-.panel-header{
+.transaction-panel-header{
     display: flex;
     align-items: center;
     justify-content: space-between;
     width: 100%;
 }
 
-.panel-header h2 {
+.transaction-panel-header h2 {
     display: flex;
     align-items: center;
     gap: 5px;
 }
 
-.summary{
+.transaction-summary{
     display: flex;
     align-items: center;
     justify-content: center;
@@ -35,7 +36,7 @@
 
 }
 
-.data-list{
+.transaction-data-list{
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -44,31 +45,31 @@
     width: 100%;
 }
 
-.data-list-filters{
+.transaction-data-list-filters{
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 10px;
 }
-.data-list-filters p {
+.transaction-data-list-filters p {
     font-size: 8px;
 }
 
-.filters{
+.transaction-filters{
     display: flex;
     justify-content: center;
     width: 100%;
     gap: 10px;
 }
 
-.filters-buttons{
+.transaction-filters-buttons{
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 10px;
 }
 
-.data-list-header{
+.transaction-data-list-header{
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -77,24 +78,24 @@
     gap: 10px;
 }
 
-.data-list-title{
+.transaction-data-list-title{
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
-.data-list-header span {
+.transaction-data-list-header span {
     font-size: 20px;
     color: var(--gray-400);
 }
 
-.data-list-header p {
+.transaction-data-list-header p {
     font-size: 14px;
     color: var(--gray-400);
 }
 
 
-.itens-container{
+.transaction-itens-container{
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -107,33 +108,31 @@
 
 
 @media (max-width : 980px) {
-
-
-    .panel-header{
+    .transaction-panel-header{
         width: 80%;
     }
 
-    .summary{
+    .transaction-summary{
         display: grid;
         grid-template-columns: repeat(2, 1fr);
     }
 }
 
 @media (max-width : 500px) {
-    .summary{
+    .transaction-summary{
         display: grid;
         grid-template-columns: repeat(1, 1fr);
     }
 
-    .data-list-header span {
+    .transaction-data-list-header span {
         font-size: 14px;
     }
     
-    .data-list-header p {
+    .transaction-data-list-header p {
         font-size: 10px;
 
     }
-    .filters {
+    .transaction-filters {
         flex-direction: column;
     }
 

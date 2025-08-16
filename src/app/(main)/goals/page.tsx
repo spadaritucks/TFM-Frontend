@@ -1,9 +1,9 @@
-import { GoalStatus } from "@/@types/Enums/GoalStatus";
 import GoalPanel from "@/components/goal-panel/component";
 import { MainLayout } from "@/layouts/main/layout";
 import { GetGoalsByUserIdService, GetGoalsStatusCountByUserId } from "@/services/GoalService";
 import { GetAllSubcategoriesService } from "@/services/SubcategoryService";
 import { GetCurrentUser } from "@/utils/GetCurrentUser";
+import dayjs from "dayjs";
 
 export default async function Goals(props: { searchParams: Promise<{ [key: string]: string }> }) {
     const searchParams = await props.searchParams;
@@ -17,12 +17,8 @@ export default async function Goals(props: { searchParams: Promise<{ [key: strin
     const goalStatus = searchParams.goalStatus || null
 
     const user = await GetCurrentUser()
-    const subcategories = await GetAllSubcategoriesService(0, 20)
-
-    const InProgressGoals = await GetGoalsStatusCountByUserId(user.id, GoalStatus.InProgress)
-    const CompletedGoals = await GetGoalsStatusCountByUserId(user.id, GoalStatus.Completed)
-    const ExpiredGoals = await GetGoalsStatusCountByUserId(user.id, GoalStatus.Expired)
-
+    const subcategories = await GetAllSubcategoriesService(user.id)
+    const goalsCount = await GetGoalsStatusCountByUserId(user.id)
     const goals = await GetGoalsByUserIdService(
         user.id,
         subcategory,
@@ -32,6 +28,8 @@ export default async function Goals(props: { searchParams: Promise<{ [key: strin
         20
     )
 
+
+
     return (
         <MainLayout>
             <section className="section-panel">
@@ -39,12 +37,7 @@ export default async function Goals(props: { searchParams: Promise<{ [key: strin
                     userId={user.id}
                     subcategories={subcategories}
                     goals={goals}
-                    inProgressGoals={InProgressGoals}
-                    completedGoals={CompletedGoals}
-                    expiredGoals={ExpiredGoals}
-
-
-
+                    goalsCount={goalsCount}
                 />
             </section>
         </MainLayout>

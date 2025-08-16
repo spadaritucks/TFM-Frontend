@@ -15,19 +15,20 @@ import { useModal } from "@/context/modal"
 import GoalsForm from "../forms/goal-form/component"
 import { GoalStatus } from "@/@types/Enums/GoalStatus"
 import { GoalsCounter } from "../goal-counter/component"
+import { GoalCountDTO } from "@/@types/DTOs/Goals/GoalCountDTO"
+
 
 interface GoalPanel {
     goals: GoalResponseDTO
-    subcategories: SubcategoryResponseDTO
+    subcategories: SubcategoryResponseDTO[]
     userId: string
-    inProgressGoals: number
-    completedGoals: number
-    expiredGoals : number
+    goalsCount: GoalCountDTO
+
 }
 
 
 
-export default function GoalPanel({ goals, subcategories, userId, inProgressGoals, completedGoals, expiredGoals }: GoalPanel) {
+export default function GoalPanel({ goals, subcategories, userId, goalsCount }: GoalPanel) {
 
 
     const searchParams = useSearchParams()
@@ -81,22 +82,22 @@ export default function GoalPanel({ goals, subcategories, userId, inProgressGoal
                 <div className="panel-header">
                     <h2>Metas</h2>
                     <Button variant="default" name="Adicionar Meta"
-                        onClick={() => openModal("Cadastrar Metas", <GoalsForm userId={userId} subcategories={subcategories.content} />)} />
+                        onClick={() => openModal("Cadastrar Metas", <GoalsForm userId={userId} subcategories={subcategories} />)} />
                 </div>
 
                 <div className="summary">
                     <GoalsCounter
-                        counter={inProgressGoals}
+                        counter={goalsCount.inProgress}
                         Icon={<CircleArrowUp color="#00875F" />}
                         title={`Em Progresso `}
                     />
                     <GoalsCounter
-                        counter={completedGoals}
+                        counter={goalsCount.completed}
                         title={`Completas`}
                         Icon={<CircleArrowDown color="#f43f5e" />}
                     />
                     <GoalsCounter
-                        counter={expiredGoals}
+                        counter={goalsCount.expired}
                         title={`Expirada `}
                         Icon={<SquareSigma color="#3b82f6" />}
                     />
@@ -125,7 +126,7 @@ export default function GoalPanel({ goals, subcategories, userId, inProgressGoal
                                 value={subcategory ?? "0"}
                             >
                                 <option value="0" disabled >Por Subcategoria</option>
-                                {subcategories.content && subcategories.content.map((subcategory, index) =>
+                                {subcategories && subcategories.map((subcategory, index) =>
                                     <option
                                         key={index}
                                         value={subcategory.subcategoryName}>

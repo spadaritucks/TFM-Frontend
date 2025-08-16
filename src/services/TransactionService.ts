@@ -1,20 +1,21 @@
 'use server'
+import { TransactionAmountDTO } from "@/@types/DTOs/Transactions/TransactionAmountDTO";
 import { TransactionRequestDTO } from "@/@types/DTOs/Transactions/TransactionRequestDTO"
 import { TransactionResponseDTO } from "@/@types/DTOs/Transactions/TransactionResponseDTO"
+import { TransactionsSubcategoriesAmount } from "@/@types/DTOs/Transactions/TransactionsAmountBySubcategory";
 import { api } from "@/config/axios"
 import { getToken } from "@/utils/GetToken";
 
 
-export async function GetMonthCurrentTransactionAmountByUserIdService(userId: string | null, month: number, year: number, transactionType : string)
-    : Promise<number> {
+export async function GetMonthCurrentTransactionAmountByUserIdService(userId: string | null, month: number, year: number)
+     : Promise<TransactionAmountDTO>{
         const token = await getToken()
 
     const response = await api.get("/transactions/month-amount", {
         params: {
             userId,
             month,
-            year,
-            transactionType
+            year
         },
         headers : {
             "Authorization" : `Bearer ${token}`
@@ -24,10 +25,14 @@ export async function GetMonthCurrentTransactionAmountByUserIdService(userId: st
     if (response.status !== 200) {
         throw new Error("Erro no servidor")
     }
-  
+
+
+
     return response.data
 
 }
+
+
 
 export async function GetCurrentMonthTransactionsByUserIdService(
     userId: string | null, 
@@ -62,6 +67,33 @@ export async function GetCurrentMonthTransactionsByUserIdService(
         throw new Error("Erro no servidor")
     }
   
+    return response.data
+}
+
+export async function GetAmountCurrentTransactionsBySubCategory(
+    userId: string | null, 
+    month: number, 
+    year: number,
+) : Promise<TransactionsSubcategoriesAmount[]>
+     {
+        const token = await getToken()
+
+    const response = await api.get("/transactions/amount-by-subcategory", {
+        params: {
+            userId,
+            month,
+            year,
+        },
+        headers : {
+            "Authorization" : `Bearer ${token}`
+        }
+    })
+
+    if (response.status !== 200) {
+        throw new Error("Erro no servidor")
+    }
+  
+    console.log(response.data)
     return response.data
 }
 

@@ -44,21 +44,15 @@ export default async function Transactions(props: { searchParams: Promise<{ [key
         10
     )
 
-    const income = await GetMonthCurrentTransactionAmountByUserIdService(
+    const amount = await GetMonthCurrentTransactionAmountByUserIdService(
         user.id,
         month + 1,
         year,
-        TransactionTypeEnum.INCOME
+    
     )
 
-    const expense = await GetMonthCurrentTransactionAmountByUserIdService(
-        user.id,
-        month + 1,
-        year,
-        TransactionTypeEnum.EXPENSE
-    )
-
-    const subcategories = await GetAllSubcategoriesService(0, 20)
+    
+    const subcategories = await GetAllSubcategoriesService(user.id)
 
     return (
         <MainLayout>
@@ -67,8 +61,8 @@ export default async function Transactions(props: { searchParams: Promise<{ [key
                     transactions={transactions}
                     subcategories={subcategories}
                     userId={user.id}
-                    income={income}
-                    expense={expense}
+                    amount = {amount}
+                   
                 />
             </section>
         </MainLayout>

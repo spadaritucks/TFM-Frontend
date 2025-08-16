@@ -2,6 +2,7 @@ import { GoalContentDTO } from "@/@types/DTOs/Goals/GoalResponseDTO"
 import './styles.css'
 import GoalDetails from "../goal-details/component"
 import { useModal } from "@/context/modal"
+import { TransactionsAmountBySubcategory } from "@/@types/DTOs/Transactions/TransactionsAmountBySubcategory"
 
 interface GoalsItem {
     goals: GoalContentDTO
@@ -22,7 +23,10 @@ export default function GoalsItem({ goals }: GoalsItem) {
                 <p>{goals.targetValue.toLocaleString('pt-br', {
                     style: "currency",
                     currency: "BRL"
-                })}</p>
+                })}/{goals.currentAmount.toLocaleString('pt-br', {
+                    style: "currency",
+                    currency: "BRL"
+                }) || 0}</p>
             </div>
             <div className="goal-item-content">
                 <span>{goals.subcategory.subcategoryName}</span>

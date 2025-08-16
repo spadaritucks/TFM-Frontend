@@ -24,10 +24,10 @@ export function TransactionsAmountCounter({ counter, Icon, title }: TranscationT
             </div>
 
             <div className='counter'>
-                <p>{counter.toLocaleString('pt-br', {
+                <p>{ counter ? counter.toLocaleString('pt-br', {
                     style: "currency",
                     currency: "BRL"
-                })}</p>
+                }): 0}</p>
             </div>
 
         </div>
