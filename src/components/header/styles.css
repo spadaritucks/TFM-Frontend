@@ -3,7 +3,7 @@ header {
     height: 70px;
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: flex-end;
     border-bottom: 2px solid var(--gray-400);
     padding: 0 3vw;
     background-color: var(--white);
@@ -18,12 +18,3 @@ header svg:hover {
     transform: scale(1.20);
 }
 
-@media (max-width: 768px) {
-    header {
-        position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        z-index: 1003;
-    }
-}

@@ -1,3 +1,4 @@
+"use client"
 import { PieChart, PieChartProps } from "@mui/x-charts"
 import './styles.css'
 

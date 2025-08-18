@@ -116,6 +116,7 @@ export default function CategoriesContent({ categories, subcategories, userId, s
                         },
                     ]}
                     
+                    
                 />
                 <PieChartComponent
                     title={`Despesas em % | ${currentDate}`}
