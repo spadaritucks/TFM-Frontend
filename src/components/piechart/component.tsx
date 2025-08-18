@@ -5,6 +5,7 @@ interface PieChartComponentProps extends PieChartProps  {
     title : string;
 }
 
+
 export default function PieChartComponent({title, ...rest} : PieChartComponentProps) {
 
     return (
@@ -12,8 +13,13 @@ export default function PieChartComponent({title, ...rest} : PieChartComponentPr
             <div className="chart-header">
                 <span>{title}</span>
             </div>
-            <PieChart {...rest}/>
-
+            <div className="chart-container">
+                <PieChart 
+                    width={200}
+                    height={200}
+                    {...rest}
+                />
+            </div>
         </div>
     )
 }

@@ -1,14 +1,13 @@
 import { ReactNode } from 'react'
 import './styles.css'
 
-
-interface TranscationTotal {
+interface TransactionTotal {
     counter: number
     Icon: ReactNode
     title: string
 }
 
-export function TransactionsAmountCounter({ counter, Icon, title }: TranscationTotal) {
+export function TransactionsAmountCounter({ counter, Icon, title }: TransactionTotal) {
 
     return (
         <div className='container'>

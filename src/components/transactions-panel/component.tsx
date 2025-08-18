@@ -44,7 +44,7 @@ export default function TransactionPanel({ transactions, subcategories, userId, 
     const page = z.coerce
         .number()
         .transform(page => page - 1)
-        .parse(searchParams.get('page') ?? "1")
+        .safeParse(searchParams.get('page') ?? "1").data ?? 0
 
 
 
@@ -145,10 +145,10 @@ export default function TransactionPanel({ transactions, subcategories, userId, 
                         </div>
                     </div>
                     <div className="transaction-itens-container">
-                        {transactions.content && transactions.content.length > 0 ? transactions.content.map((transaction, index) =>
+                        {transactions.content && transactions.content.length > 0 ? transactions.content.map((transaction) =>
                             <TransactionsItem
                                 transactions={transaction}
-                                key={index}
+                                key={transaction.id}
                             />) : <p>Não há transações nesses mês</p>}
                     </div>
                     <Pagination

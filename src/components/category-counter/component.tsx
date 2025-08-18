@@ -1,15 +1,14 @@
-
 import { ReactNode } from 'react'
 import './styles.css'
 
-interface TranscationTotal {
+interface TransactionTotal {
     counter: number
     Icon: ReactNode
     title: string
 }
 
 
-export function CategoryCounter({ counter, Icon, title }: TranscationTotal) {
+export function CategoryCounter({ counter, Icon, title }: TransactionTotal) {
     return (
         <div className='category-container'>
             <div className='category-header'>

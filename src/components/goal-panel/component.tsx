@@ -45,7 +45,7 @@ export default function GoalPanel({ goals, subcategories, userId, goalsCount }: 
     const page = z.coerce
         .number()
         .transform(page => page - 1)
-        .parse(searchParams.get('page') ?? "1")
+        .safeParse(searchParams.get('page') ?? "1").data ?? 0
 
 
 
@@ -140,10 +140,10 @@ export default function GoalPanel({ goals, subcategories, userId, goalsCount }: 
                         </div>
                     </div>
                     <div className="itens-container">
-                        {goals.content && goals.content.length > 0 ? goals.content.map((goal, index) =>
+                        {goals.content && goals.content.length > 0 ? goals.content.map((goal) =>
                             <GoalsItem
                                 goals={goal}
-                                key={index}
+                                key={goal.id}
                             />) : <p>Metas não encontradas</p>}
                     </div>
                     <Pagination

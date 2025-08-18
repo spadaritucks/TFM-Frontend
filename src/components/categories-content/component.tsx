@@ -11,7 +11,8 @@ import { Activity } from "lucide-react"
 import { TransactionsSubcategoriesAmount } from "@/@types/DTOs/Transactions/TransactionsAmountBySubcategory"
 import dayjs from "dayjs"
 import PieChartComponent from "../piechart/component"
-import { useMemo } from "react"
+import { useMemo, useState } from "react"
+import CategoryCard from "../category-card/component"
 
 
 
@@ -26,6 +27,7 @@ interface CategoriesContentProps {
 export default function CategoriesContent({ categories, subcategories, userId, subcategoriesAmount }: CategoriesContentProps) {
 
     const { openModal } = useModal()
+    const [showList, setShowList] = useState(false)
 
     const currentDate = dayjs().format("MMMM [/] YYYY")
 
@@ -113,7 +115,7 @@ export default function CategoriesContent({ categories, subcategories, userId, s
                             data: expense
                         },
                     ]}
-
+                    
                 />
                 <PieChartComponent
                     title={`Despesas em % | ${currentDate}`}
@@ -146,11 +148,35 @@ export default function CategoriesContent({ categories, subcategories, userId, s
 
                 />
             </div>
-            {/* <div className="categories-list">
-                {categories && categories.length > 0 ? categories.map((category, index) => 
-                <CategorysItem key={index} categories={category} subcategories={subcategories} />
-                )  : <p>Não há categorias encontradas</p>}
-            </div> */}
+            
+            <div className="categories-list-toggle">
+                <Button 
+                    name={showList ? "Ocultar Lista" : "Mostrar Lista"} 
+                    variant="default" 
+                    onClick={() => setShowList(!showList)} 
+                />
+            </div>
+
+            {showList && (
+                <div className="categories-list">
+                    {categories && categories.length > 0 ? (
+                        categories.map((category) => {
+                            const categorySubcategories = subcategories.filter(sub => sub.categoryId === category.id)
+                            return (
+                                <CategoryCard
+                                    key={category.id}
+                                    category={category}
+                                    subcategories={categorySubcategories}
+                                    onDeleteCategory={(categoryId) => console.log('Delete category:', categoryId)}
+                                    onDeleteSubcategory={(subcategoryId) => console.log('Delete subcategory:', subcategoryId)}
+                                />
+                            )
+                        })
+                    ) : (
+                        <p>Não há categorias encontradas</p>
+                    )}
+                </div>
+            )}
 
         </div>
 
