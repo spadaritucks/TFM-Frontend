@@ -35,8 +35,7 @@ export default function Header({ user }: HeaderProps) {
 
     return (
         <header>
-            {isOpen ? <X width={35} height={35} color='#1f83a7' onClick={handleToggleSidebar} /> 
-            : <Menu width={35} height={35} color='#1f83a7' onClick={handleToggleSidebar} />}
+            <Menu width={35} height={35} color='#1f83a7' onClick={handleToggleSidebar}/>
             <Dropdown
                 name={name}
                 itens={[

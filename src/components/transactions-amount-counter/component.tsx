@@ -8,13 +8,7 @@ interface TranscationTotal {
     title: string
 }
 
-
-
-
 export function TransactionsAmountCounter({ counter, Icon, title }: TranscationTotal) {
-
-
-
 
     return (
         <div className='container'>

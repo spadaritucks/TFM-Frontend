@@ -38,6 +38,7 @@
     justify-content: center;
     gap: 20px;
     animation: modalOpen 0.3s ease-in-out;
+    padding: 15px 20px;
 }
 
 .modal-header {

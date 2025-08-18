@@ -5,6 +5,7 @@ import { ArrowLeftRight, Goal, LayoutDashboard } from 'lucide-react'
 import Link from 'next/link'
 import { usePathname, useSearchParams } from 'next/navigation'
 import './styles.css'
+import Separator from '../separator/component'
 
 export default function SideBar() {
     const pathname = usePathname()
@@ -20,10 +21,14 @@ export default function SideBar() {
                     <p>Gestão Financeira | Praticidade | Metas | Dashboard</p>
                 </div>
             </div>
+            <Separator width='95%' height='1px' color='#47b9e5' />
             <div className="side-bar-content">
+                <div className='nav-title'>
+                    <span>Navegação</span>
+                </div>
                 <Link href={'/transactions'} aria-current={pathname === "/transactions" ? 'page' : undefined}><ArrowLeftRight /> Transações</Link>
                 <Link href={'/goals'} aria-current={pathname === "/goals" ? 'page' : undefined}> <Goal /> Metas</Link>
-                <Link href={'/categories'} aria-current={pathname === "/categories" ? 'page' : undefined}><LayoutDashboard /> Categories</Link>
+                <Link href={'/categories'} aria-current={pathname === "/categories" ? 'page' : undefined}><LayoutDashboard /> Categorias</Link>
             </div>
         </div>
     )

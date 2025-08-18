@@ -38,6 +38,17 @@
     font-size: 10px;
 }
 
+.nav-title{
+    width: 100%;
+    display: flex;
+    align-items: flex-start;
+}
+
+.nav-title span{
+    font-size: 12px;
+    color: var(--gray-400);
+}
+
 .side-bar-content{
     display: flex;
     flex-direction: column;

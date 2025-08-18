@@ -2,9 +2,8 @@
     width: 300px;
     height: 120px;
 
-    border: 2px solid var(--gray-400);
-    box-shadow: 2px 2px 2px var(--gray-300);
-    border-radius: 10px;
+    box-shadow: 2px 2px 2px 2px var(--sky-400);
+    border-radius: 5px;
     padding : 10px 15px;
 
     display : flex;

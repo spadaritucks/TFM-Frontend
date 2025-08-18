@@ -22,7 +22,7 @@ export default function Dropdown({ itens, name, image, actionsName }: DropdownPr
             <div className='trigger' onClick={() => setOpen(!open)}>
                 {image ? <Image width={50} height={50} src={image} className='avatar' alt='' /> : null}
                 <p>{name}</p>
-                <ArrowDown color="#7C7C8A" width={20} height={20} />
+                <ArrowDown color='#1f83a7' width={20} height={20} />
             </div>
 
             <div className={`content ${open ? "open" : ""}`}>

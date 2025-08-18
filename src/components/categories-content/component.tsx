@@ -8,12 +8,10 @@ import SubcategorysForm from "../forms/subcategory-form/component"
 import './styles.css'
 import { CategoryCounter } from "../category-counter/component"
 import { Activity } from "lucide-react"
-import { PieChart } from "@mui/x-charts"
 import { TransactionsSubcategoriesAmount } from "@/@types/DTOs/Transactions/TransactionsAmountBySubcategory"
 import dayjs from "dayjs"
 import PieChartComponent from "../piechart/component"
 import { useMemo } from "react"
-import CategorysItem from "../category-item/component"
 
 
 
@@ -148,11 +146,11 @@ export default function CategoriesContent({ categories, subcategories, userId, s
 
                 />
             </div>
-            <div className="categories-list">
+            {/* <div className="categories-list">
                 {categories && categories.length > 0 ? categories.map((category, index) => 
                 <CategorysItem key={index} categories={category} subcategories={subcategories} />
                 )  : <p>Não há categorias encontradas</p>}
-            </div>
+            </div> */}
 
         </div>
 
