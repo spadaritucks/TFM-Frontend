@@ -8,6 +8,7 @@ import z from "zod"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { CreateUserService } from "@/services/UserService"
+import { toast } from "sonner"
 
 
 
@@ -67,11 +68,11 @@ export default function RegisterForm() {
             await CreateUserService(formdata)
 
 
-            alert("Usuario criado com sucesso")
+            toast.success("Usuario criado com sucesso")
             return router.push("/")
             // eslint-disable-next-line @typescript-eslint/no-explicit-any
         } catch (error: any) {
-            alert(error.message)
+            toast.error(error.message)
         }
 
 
