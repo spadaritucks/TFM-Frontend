@@ -15,6 +15,7 @@ import GoalsForm from "../forms/goal-form/component"
 import { GoalStatus } from "@/@types/Enums/GoalStatus"
 import { GoalsCounter } from "../goal-counter/component"
 import { GoalCountDTO } from "@/@types/DTOs/Goals/GoalCountDTO"
+import { CircleArrowDown, CircleArrowUp, SquareSigma } from "lucide-react"
 
 
 interface GoalPanel {
