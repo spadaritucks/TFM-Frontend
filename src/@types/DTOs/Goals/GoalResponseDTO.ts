@@ -1,5 +1,4 @@
 import { GoalStatus } from "../../Enums/GoalStatus"
-import { SubcategoryContentDTO } from "../Subcategory/SubcategoryResponseDTO"
 
 export type GoalResponseDTO = {
 
