@@ -1,4 +1,5 @@
 import { GoalStatus } from "../../Enums/GoalStatus"
+import { SubcategoryResponseDTO } from "../Subcategory/SubcategoryResponseDTO"
 
 export type GoalResponseDTO = {
 
@@ -24,7 +25,7 @@ export type GoalContentDTO = {
     goalStatus : GoalStatus
     createdAt: string
     updatedAt:string
-    subcategory : SubcategoryContentDTO
+    subcategory : SubcategoryResponseDTO
     currentAmount: number
 }
 
