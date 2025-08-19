@@ -6,12 +6,12 @@ import Logo2 from '../../public/tfm-logo-2.png'
 
 export default async function Home() {
   return (
-    <section className="form-section">
-      <div className="form-image-container">
+    <section className="login-form-section">
+      <div className="login-form-image-container">
         <Image src={Logo} alt="" width={400} height={400} />
       </div>
-      <div className="form-container">
-        <div className="form-header">
+      <div className="login-form-container">
+        <div className="login-form-header">
           <Image src={Logo2} alt="" width={307.2} />
           <p>Gestão Financeira | Praticidade | Metas | Dashboard</p>
         </div>

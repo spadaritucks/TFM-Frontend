@@ -1,18 +1,18 @@
-.login-form-section {
+.verify-code-form-section{
     display: grid;
     grid-template-columns: 2fr 1fr;
     width: 100%;
     height: 100vh;
 }
 
-.login-form-image-container {
+.verify-code-form-image-container{
     display: flex;
     align-items: center;
     justify-content: center;
     background: radial-gradient(var(--sky-400), var(--sky-600));
 }
 
-.login-form-header {
+.verify-code-form-header {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -22,12 +22,13 @@
     gap: 0;
 }
 
-.login-form-header p {
+.verify-code-form-header p {
     color: var(--gray-600);
     font-size: 0.8rem;
 }
 
-.login-form-container {
+
+.verify-code-form-container {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -35,25 +36,31 @@
     padding: 10px 10px;
     background-color: var(--gray-100);
     width: 100%;
+    gap: 8px;
 }
 
-.login-form-container h2 {
+.verify-code-form-container h2 {
     color: var(--gray-900);
 }
 
-@media (max-width: 900px) {
-    .login-form-section {
+.verify-code-form-container p {
+    font-size: 14px;
+}
+
+@media (max-width : 900px) {
+    .verify-code-form-section {
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: center;
     }
 
-    .login-form-image-container {
+    .verify-code-form-image-container {
         display: none;
     }
 
-    .login-form-container {
+    .verify-code-form-container {
         height: 100%;
     }
+    
 }

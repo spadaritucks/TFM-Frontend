@@ -46,7 +46,7 @@ type RegisterFormdata = z.infer<typeof registerUserSchema>
 
 export default function RegisterForm() {
 
-    const { handleSubmit, register, formState: { isSubmitting } } = useForm<RegisterFormdata>({
+    const { handleSubmit, register, formState: { isSubmitting, errors } } = useForm<RegisterFormdata>({
         resolver: zodResolver(registerUserSchema)
     })
 
@@ -96,6 +96,7 @@ export default function RegisterForm() {
                 type="text"
                 placeholder="Marcelo Oliveira"
                 {...register("name")}
+                errorMessage={errors.name?.message ? errors.name.message : undefined}
             />
 
             <Input
@@ -103,6 +104,8 @@ export default function RegisterForm() {
                 type="email"
                 placeholder="jonhdoe@example.com"
                 {...register("email")}
+                errorMessage={errors.email?.message ? errors.email.message : undefined}
+                
             />
 
             <Input
@@ -110,6 +113,7 @@ export default function RegisterForm() {
                 type="text"
                 placeholder="2000"
                 {...register("monthlyIncome")}
+                errorMessage={errors.monthlyIncome?.message ? errors.monthlyIncome.message : undefined}
             />
 
             <Input
@@ -117,23 +121,26 @@ export default function RegisterForm() {
                 type="text"
                 placeholder="(11) 99999-9999"
                 {...register("phone")}
+                errorMessage={errors.phone?.message ? errors.phone.message : undefined}
             />
 
             <Input
                 label="Senha"
                 type="password"
                 {...register("password")}
+                errorMessage={errors.password?.message ? errors.password.message : undefined}
             />
 
             <Input
                 label="Confirme sua Senha"
                 type="password"
                 {...register("confirm_password")}
+                errorMessage={errors.confirm_password?.message ? errors.confirm_password.message : undefined}
             />
 
 
 
-            <div className="form-actions grid-column">
+            <div className="register-form-actions grid-column">
                 <Button name="Cadastrar-se" variant="default" type="submit" disabled={isSubmitting} />
                 <Button name="Voltar" variant="link" type="button" onClick={(() => router.push("/"))} />
             </div>

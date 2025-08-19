@@ -6,12 +6,12 @@ import RegisterForm from "@/components/forms/register-user-form/component";
 
 export default async function Register() {
   return (
-    <section className="form-section">
-      <div className="form-image-container">
+    <section className="register-form-section">
+      <div className="register-form-image-container">
         <Image src={Logo} alt="" width={400} height={400} />
       </div>
-      <div className="form-container">
-        <div className="form-header">
+      <div className="register-form-container">
+        <div className="register-form-header">
           <Image src={Logo2} alt="" width={307.2} />
           <p>Gestão Financeira | Praticidade | Metas | Dashboard</p>
         </div>

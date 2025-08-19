@@ -6,13 +6,13 @@
     width: 90%;
 }
 
-.form-password{
+.login-form-password{
     display: flex;
     flex-direction: column;
     align-items: flex-start;
 }
 
-.form-actions{
+.login-form-actions{
     display: flex;
     align-items: center;
     justify-content: center;

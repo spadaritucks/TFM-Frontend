@@ -23,7 +23,7 @@ export default function LoginForm() {
 
     const router = useRouter()
 
-    const { handleSubmit, register, formState: { isSubmitting } } = useForm<LoginFormdata>({
+    const { handleSubmit, register, formState: { isSubmitting, errors } } = useForm<LoginFormdata>({
         resolver: zodResolver(loginUserSchema)
     })
 
@@ -50,6 +50,7 @@ export default function LoginForm() {
                 type="email"
                 placeholder="jonhdoe@example.com"
                 {...register("email")}
+                errorMessage={errors.email?.message ? errors.email.message : undefined}
             />
 
 
@@ -58,10 +59,16 @@ export default function LoginForm() {
                     label="Senha"
                     type="password"
                     {...register("password")}
+                    errorMessage={errors.password?.message ? errors.password.message : undefined}
                 />
-                <Button name="Esqueci a minha senha" variant="link" />
+                <Button 
+                    name="Esqueci a minha senha" 
+                    variant="link" 
+                    type="button"
+                    onClick={() => router.push("/reset-password/send-code")}
+                />
             </div>
-            <div className="form-actions">
+            <div className="login-form-actions">
                 <Button name="Entrar" variant="default" type="submit" disabled={isSubmitting} />
                 <Button name="Criar a sua conta" type="button" variant="link" onClick={(() => router.push("/register"))} />
             </div>
