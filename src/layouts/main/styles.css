@@ -18,11 +18,8 @@
 }
 
 @media (max-width: 768px) {
-    .root-layout {
-        grid-template-columns: 1fr;
-    }
-    
+
     .root-layout:has(.side-bar-root.close) {
-        grid-template-columns: 1fr;
+        grid-template-columns: 0 1fr;
     }
 }
