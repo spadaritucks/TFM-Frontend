@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { Roboto } from "next/font/google";
 import "./globals.css";
 import { Toaster } from 'sonner'
-import dayjs from "dayjs";
 import { ModalProvider } from "@/context/modal";
 import Modal from "@/components/modal/compontent";
 
@@ -24,7 +23,6 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  dayjs.locale("pt-br")
   return (
     <html lang="en">
       <body className={`${roboto.className}`}>

@@ -3,7 +3,6 @@ import { MainLayout } from "@/layouts/main/layout";
 import { GetGoalsByUserIdService, GetGoalsStatusCountByUserId } from "@/services/GoalService";
 import { GetAllSubcategoriesService } from "@/services/SubcategoryService";
 import { GetCurrentUser } from "@/utils/GetCurrentUser";
-import dayjs from "dayjs";
 
 export default async function Goals(props: { searchParams: Promise<{ [key: string]: string }> }) {
     const searchParams = await props.searchParams;

@@ -5,7 +5,7 @@ import Input from "@/components/input/component"
 import './styles.css'
 import Button from "@/components/button/component"
 import { useRouter } from "next/navigation"
-import z, { string } from "zod"
+import z from "zod"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import Select from "@/components/select/component"

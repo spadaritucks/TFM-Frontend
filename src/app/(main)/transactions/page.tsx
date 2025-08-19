@@ -1,4 +1,3 @@
-import { TransactionTypeEnum } from "@/@types/Enums/TransactionTypeEnum";
 import TransactionPanel from "@/components/transactions-panel/component";
 import { MainLayout } from "@/layouts/main/layout";
 import { GetAllSubcategoriesService } from "@/services/SubcategoryService";
