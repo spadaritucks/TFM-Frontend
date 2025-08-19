@@ -42,13 +42,14 @@ export default function VerifyCodeForm() {
                 email: email,
                 code: data.code
             })
-            
+
             // Armazenar código no sessionStorage para a próxima etapa
             sessionStorage.setItem('resetCode', data.code)
-            
+
             toast.success("Código verificado com sucesso!")
             router.push("/reset-password/new-password")
 
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
         } catch (error: any) {
             toast.error(error.message)
         }
@@ -73,17 +74,17 @@ export default function VerifyCodeForm() {
             />
 
             <div className="form-actions">
-                <Button 
-                    name="Verificar Código" 
-                    variant="default" 
-                    type="submit" 
-                    disabled={isSubmitting} 
+                <Button
+                    name="Verificar Código"
+                    variant="default"
+                    type="submit"
+                    disabled={isSubmitting}
                 />
-                <Button 
-                    name="Voltar" 
-                    type="button" 
-                    variant="link" 
-                    onClick={() => router.push("/reset-password/send-code")} 
+                <Button
+                    name="Voltar"
+                    type="button"
+                    variant="link"
+                    onClick={() => router.push("/reset-password/send-code")}
                 />
             </div>
         </form>

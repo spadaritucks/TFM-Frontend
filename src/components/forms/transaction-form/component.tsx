@@ -77,7 +77,6 @@ export default function TransactionsForm({ userId, subcategories }: Transactions
     }
 
 
-    console.log(errors)
 
     return (
 
