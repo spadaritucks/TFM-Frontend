@@ -7,14 +7,6 @@ header {
     border-bottom: 2px solid var(--gray-400);
     padding: 0 3vw;
     background-color: var(--white);
+    margin: 0;
+    flex-shrink: 0;
 }
-
-header svg {
-    cursor: pointer;
-    transition: transform 0.3s ease-in-out;
-}
-
-header svg:hover {
-    transform: scale(1.20);
-}
-

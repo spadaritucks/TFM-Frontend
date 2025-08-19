@@ -10,8 +10,6 @@ import { useState } from 'react'
 
 export default function SideBar() {
     const pathname = usePathname()
-
-
     const [isOpen, setIsOpen] = useState<boolean>(true)
 
     return (
@@ -22,23 +20,33 @@ export default function SideBar() {
                         <Image src={Logo2} alt="" width={207.2} />
                         <p>Gestão Financeira | Praticidade | Metas | Dashboard</p>
                     </div>
-
                 </div>
+                
                 <Separator width='95%' height='1px' color='#47b9e5' />
+                
                 <div className="side-bar-content">
                     <div className='nav-title'>
                         <span>Navegação</span>
                     </div>
-                    <Link href={'/transactions'} aria-current={pathname === "/transactions" ? 'page' : undefined}><ArrowLeftRight /> Transações</Link>
-                    <Link href={'/goals'} aria-current={pathname === "/goals" ? 'page' : undefined}> <Goal /> Metas</Link>
-                    <Link href={'/categories'} aria-current={pathname === "/categories" ? 'page' : undefined}><LayoutDashboard /> Categorias</Link>
+                    <Link href={'/transactions'} aria-current={pathname === "/transactions" ? 'page' : undefined}>
+                        <ArrowLeftRight /> Transações
+                    </Link>
+                    <Link href={'/goals'} aria-current={pathname === "/goals" ? 'page' : undefined}>
+                        <Goal /> Metas
+                    </Link>
+                    <Link href={'/categories'} aria-current={pathname === "/categories" ? 'page' : undefined}>
+                        <LayoutDashboard /> Categorias
+                    </Link>
                 </div>
             </div>
-          <div className='side-bar-menu'>
-               <Menu  width={40} height={40} color='#1f83a7' onClick={() => setIsOpen(!isOpen)} />
-          </div>
-             
+            
+            <button 
+                className='side-bar-menu'
+                onClick={() => setIsOpen(!isOpen)}
+                type="button"
+            >
+                <Menu width={35} height={35} color='#1f83a7' />
+            </button>
         </div>
-
     )
 }

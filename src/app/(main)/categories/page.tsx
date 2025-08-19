@@ -22,7 +22,7 @@ export default async function Categories () {
 
     return (
         <MainLayout>
-            <section className = "categories-content">
+            <section className = "categories-section">
                 <CategoriesContent subcategoriesAmount={subcategoriesAmount} categories={categories}  subcategories={subcategories} userId={user.id} />
             </section>
         </MainLayout>
