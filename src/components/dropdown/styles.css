@@ -92,3 +92,7 @@
         background-color: var(--gray-300);
     }
 }
+
+.avatar{
+    border-radius: 100%;
+}
