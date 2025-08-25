@@ -17,6 +17,8 @@
     padding: 0 5px;
     position: relative;
     z-index: 100;
+    max-width: 100px;
+    height: 50px;
 }
 
 .trigger:hover{
@@ -28,6 +30,13 @@
     font-size: 14px;
     color: var(--gray-500);
 }
+
+.avatar{
+    border-radius: 100%;
+    width: 40px;
+    height: 40px;
+}
+
 
 .dropdown-header{
     width: 100%;
@@ -93,6 +102,3 @@
     }
 }
 
-.avatar{
-    border-radius: 100%;
-}
