@@ -34,7 +34,7 @@ export default function LoginForm() {
                 email: data.email,
                 password: data.password
             })
-            router.push("/home")
+            router.push("/transactions")
 
             // eslint-disable-next-line @typescript-eslint/no-explicit-any
         } catch (error: any) {
